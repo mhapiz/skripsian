@@ -61,11 +61,11 @@
                                 <div class="row m-0 chart-left">
                                     <div class="col-xl-12 p-0 left_side_earning">
                                         <h5>Dashboard</h5>
-                                        <p class="font-roboto">Total Pengeluaran Tahun ini</p>
+                                        {{-- <p class="font-roboto">Total Pengeluaran Tahun ini</p> --}}
                                     </div>
                                     <div class="col-xl-12 p-0 left_side_earning">
-                                        <h5>$4055.56 </h5>
-                                        <p class="font-roboto">Pengeluaran Bulan Ini</p>
+                                        <h5>Rp. {{ number_format($pengeluaranTahunIni->total, 0, ',', '.') }} </h5>
+                                        <p class="font-roboto">Pengeluaran Tahun Ini</p>
                                     </div>
                                 </div>
                             </div>

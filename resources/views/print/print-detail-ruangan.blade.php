@@ -12,7 +12,7 @@
         <table class="w-full">
             <tr>
                 <td>
-                    <h2 style="text-align: center">Detail Barang Masuk</h2>
+                    <h2 style="text-align: center">Detail Inventaris Ruangan</h2>
                 </td>
             </tr>
         </table>

@@ -74,6 +74,14 @@
                     </a>
                 </li>
 
+                <li class="sidebar-list">
+                    <a class="sidebar-link sidebar-title link-nav {{ request()->is('admin/aset*') ? 'active' : '' }}"
+                        href="{{ route('admin.aset.index') }}">
+                        <i data-feather="hash"></i>
+                        <span>Aset </span>
+                    </a>
+                </li>
+
                 <li class="sidebar-main-title">
                     <div>
                         <h6>Transaksi </h6>
@@ -114,6 +122,14 @@
                 </li>
 
                 <li class="sidebar-list">
+                    <a class="sidebar-link sidebar-title link-nav {{ request()->is('admin/inventaris-ruangan*') ? 'active' : '' }}"
+                        href="{{ route('admin.inventaris-ruangan.index') }}">
+                        <i data-feather="hash"></i>
+                        <span>Inventaris Ruangan</span>
+                    </a>
+                </li>
+
+                <li class="sidebar-list">
                     <a class="sidebar-link sidebar-title link-nav {{ request()->is('admin/serah-terima-barang*') ? 'active' : '' }}"
                         href="{{ route('admin.serah-terima-barang.index') }}">
                         <i data-feather="hash"></i>
@@ -134,14 +150,6 @@
                         href="{{ route('admin.laporan-barang-masuk.index') }}">
                         <i data-feather="hash"></i>
                         <span>Laporan Barang Masuk</span>
-                    </a>
-                </li>
-
-                <li class="sidebar-list">
-                    <a class="sidebar-link sidebar-title link-nav {{ request()->is('admin/aset*') ? 'active' : '' }}"
-                        href="{{ route('admin.aset.index') }}">
-                        <i data-feather="hash"></i>
-                        <span>Aset </span>
                     </a>
                 </li>
 

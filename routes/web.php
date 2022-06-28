@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\AdminBarangMasukController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AdminGajiPegawaiController;
 use App\Http\Controllers\Admin\AdminInventarisController;
+use App\Http\Controllers\Admin\AdminInventarisRuanganController;
 use App\Http\Controllers\Admin\AdminLaporanBarangMasukController;
 use App\Http\Controllers\Admin\AdminMutasiController;
 use App\Http\Controllers\Admin\AdminPangkatController;
@@ -17,6 +18,7 @@ use App\Http\Controllers\Admin\AdminSerahTerimaController;
 use App\Http\Controllers\Admin\AdminSuplierController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AutoCompleteController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -44,8 +46,10 @@ Route::get('/print', [AdminController::class, 'print'])->name('print');
 Route::post('autocomplete-barang', [AutoCompleteController::class, 'autocompleteBarang'])->name('autocompleteBarang');
 Route::post('autocomplete-aset', [AutoCompleteController::class, 'autocompleteAset'])->name('autocompleteAset');
 
+Route::get('detail', [HomeController::class, 'inventarisDetail'])->name('inventaris-detail');
+
 Route::prefix('admin')
-    // ->middleware('auth')
+    ->middleware('auth')
     ->namespace('admin')
     ->group(function () {
         Route::get('/', [AdminController::class, 'index'])->name('admin.dashboard');
@@ -243,6 +247,17 @@ Route::prefix('admin')
             Route::get('get-data', [AdminLaporanBarangMasukController::class, 'getData'])->name('admin.laporan-barang-masuk.getData');
 
             Route::post('/print-rekap', [AdminLaporanBarangMasukController::class, 'printRekap'])->name('admin.laporan-barang-masuk.printRekap');
+        });
+
+        // Inventaris Ruangan
+        Route::prefix('inventaris-ruangan')->group(function () {
+            Route::get('/', [AdminInventarisRuanganController::class, 'index'])->name('admin.inventaris-ruangan.index');
+            Route::get('get-data', [AdminInventarisRuanganController::class, 'getData'])->name('admin.inventaris-ruangan.getData');
+
+            Route::get('/print-rekap', [AdminInventarisRuanganController::class, 'printRekap'])->name('admin.inventaris-ruangan.printRekap');
+
+            Route::get('detail/{id}', [AdminInventarisRuanganController::class, 'detail'])->name('admin.inventaris-ruangan.detail');
+            Route::get('/print-detail/{id}', [AdminInventarisRuanganController::class, 'printDetail'])->name('admin.inventaris-ruangan.printDetail');
         });
 
         // Aset
