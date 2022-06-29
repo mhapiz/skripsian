@@ -25,9 +25,17 @@ class AdminInventarisController extends Controller
         ]);
     }
 
-    public function getData()
+    public function getData(Request $request)
     {
-        $data = Inventaris::with(['barang', 'ruangan'])->orderBy('ruangan_id', 'ASC')->latest();
+        if (!empty($request->ruangan)) {
+            if ($request->ruangan == '-') {
+                $data = Inventaris::with(['barang', 'ruangan'])->where('ruangan_id', '=', null)->orderBy('ruangan_id', 'ASC')->latest();
+            } else {
+                $data = Inventaris::with(['barang', 'ruangan'])->where('ruangan_id', '=', $request->ruangan)->orderBy('ruangan_id', 'ASC')->latest();
+            }
+        } else {
+            $data = Inventaris::with(['barang', 'ruangan'])->orderBy('ruangan_id', 'ASC')->latest();
+        }
 
         return DataTables::eloquent($data)
             ->addIndexColumn()
@@ -50,10 +58,21 @@ class AdminInventarisController extends Controller
             ->editColumn('kode', function ($row) {
                 return $row->barang->kode_barang . ' - ' . $row->register;
             })
-            ->editColumn('qr', function ($row) {
-                return QrCode::size(150)->generate(route('admin.inventaris.detail', md5($row->id_inventaris)));
+            // ->editColumn('qr', function ($row) {
+            //     return QrCode::size(150)->generate(route('inventaris-detail', md5($row->id_inventaris)));
+            // })
+            ->editColumn('kondisi', function ($row) {
+                if ($row->kondisi == 'baik') {
+                    return '<div class="badge badge-pill badge-success">Baik</div>';
+                } elseif ($row->kondisi == 'cukup_baik') {
+                    return '<div class="badge badge-pill badge-light">Cukup Baik</div>';
+                } elseif ($row->kondisi == 'rusak') {
+                    return '<div class="badge badge-pill badge-warning">Rusak</div>';
+                } elseif ($row->kondisi == 'rusak_berat') {
+                    return '<div class="badge badge-pill badge-danger">Rusak Berat</div>';
+                }
             })
-            ->rawColumns(['aksi', 'qr'])
+            ->rawColumns(['aksi', 'kondisi'])
             ->make(true);
     }
 

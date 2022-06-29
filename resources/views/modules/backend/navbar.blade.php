@@ -52,6 +52,11 @@
                     </div>
                     <ul class="profile-dropdown onhover-show-div">
                         <li>
+                            <a href="#" data-original-title="" title="">
+                                <i data-feather="user"></i>
+                                <span>Account </span></a>
+                        </li>
+                        <li>
                             <a href="#" data-toggle="modal" data-original-title="Log Out"
                                 data-target="#logOutModal">
                                 <i data-feather="log-out"></i>

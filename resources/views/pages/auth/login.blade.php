@@ -17,6 +17,7 @@
 </head>
 
 <body>
+    @include('sweetalert::alert')
     <!-- login page start-->
     <div class="container-fluid p-0">
         <div class="row">
@@ -25,9 +26,10 @@
                     <div>
                         <div>
                             <a class="logo" href="index.html">
-                                <img class="img-fluid for-light" src="../assets/images/logo/login.png" alt="looginpage">
-                                <img class="img-fluid for-dark" src="../assets/images/logo/logo_dark.png"
-                                    alt="looginpage">
+                                <img class="img-fluid for-light"
+                                    src="{{ asset('cuba/assets/images/logo/login.png') }}" alt="looginpage">
+                                <img class="img-fluid for-dark"
+                                    src="{{ asset('cuba/assets/images/logo/logo_dark.png') }}" alt="looginpage">
                             </a>
                         </div>
                         <div class="login-main">

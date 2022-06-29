@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\AdminMutasiController;
 use App\Http\Controllers\Admin\AdminPangkatController;
 use App\Http\Controllers\Admin\AdminPegawaiController;
 use App\Http\Controllers\Admin\AdminPemeriksaanBarangController;
+use App\Http\Controllers\Admin\AdminPenggunaController;
 use App\Http\Controllers\Admin\AdminRuanganController;
 use App\Http\Controllers\Admin\AdminSerahTerimaController;
 use App\Http\Controllers\Admin\AdminSuplierController;
@@ -46,13 +47,27 @@ Route::get('/print', [AdminController::class, 'print'])->name('print');
 Route::post('autocomplete-barang', [AutoCompleteController::class, 'autocompleteBarang'])->name('autocompleteBarang');
 Route::post('autocomplete-aset', [AutoCompleteController::class, 'autocompleteAset'])->name('autocompleteAset');
 
-Route::get('detail', [HomeController::class, 'inventarisDetail'])->name('inventaris-detail');
+Route::get('detail/{id}', [HomeController::class, 'inventarisDetail'])->name('inventaris-detail');
 
 Route::prefix('admin')
     ->middleware('auth')
     ->namespace('admin')
     ->group(function () {
         Route::get('/', [AdminController::class, 'index'])->name('admin.dashboard');
+
+        // Pengguna
+        Route::prefix('pengguna')->group(function () {
+            Route::get('/', [AdminPenggunaController::class, 'index'])->name('admin.pengguna.index');
+            Route::get('get-data', [AdminPenggunaController::class, 'getData'])->name('admin.pengguna.getData');
+
+            Route::get('/create', [AdminPenggunaController::class, 'create'])->name('admin.pengguna.create');
+            Route::post('/store', [AdminPenggunaController::class, 'store'])->name('admin.pengguna.store');
+
+            Route::get('/edit/{id}', [AdminPenggunaController::class, 'edit'])->name('admin.pengguna.edit');
+            Route::put('/update/{id}', [AdminPenggunaController::class, 'update'])->name('admin.pengguna.update');
+
+            Route::delete('/destroy/{id}', [AdminPenggunaController::class, 'destroy'])->name('admin.pengguna.destroy');
+        });
 
         // Pegawai
         Route::prefix('pegawai')->group(function () {
@@ -61,6 +76,8 @@ Route::prefix('admin')
 
             Route::get('/create', [AdminPegawaiController::class, 'create'])->name('admin.pegawai.create');
             Route::post('/store', [AdminPegawaiController::class, 'store'])->name('admin.pegawai.store');
+
+            Route::get('/print-rekap', [AdminPegawaiController::class, 'printRekap'])->name('admin.pegawai.printRekap');
 
             Route::get('/edit/{id}', [AdminPegawaiController::class, 'edit'])->name('admin.pegawai.edit');
             Route::put('/update/{id}', [AdminPegawaiController::class, 'update'])->name('admin.pegawai.update');

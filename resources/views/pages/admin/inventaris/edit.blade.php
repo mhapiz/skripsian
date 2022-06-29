@@ -33,15 +33,15 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label> Nama Barang</label>
-                                        <input type="text" class="form-control" value="{{ $data->barang->nama_barang }}"
-                                            disabled>
+                                        <input type="text" class="form-control"
+                                            value="{{ $data->barang->nama_barang }}" disabled>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Kode Barang</label>
-                                        <input type="text" class="form-control" value="{{ $data->barang->kode_barang }}"
-                                            disabled>
+                                        <input type="text" class="form-control"
+                                            value="{{ $data->barang->kode_barang }}" disabled>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -53,8 +53,24 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Kondisi</label>
-                                        <input type="text" class="form-control @error('kondisi') is-invalid @enderror"
-                                            value="{{ $data->kondisi }}" name="kondisi">
+                                        <select name="kondisi" id="kondisi"
+                                            class="form-control @error('kondisi') is-invalid @enderror">
+                                            <option value="">Pilih Kondisi</option>
+                                            <option value="baik" {{ $data->kondisi == 'baik' ? 'selected' : '' }}>
+                                                Baik
+                                            </option>
+                                            <option value="cukup_baik"
+                                                {{ $data->kondisi == 'cukup_baik' ? 'selected' : '' }}>
+                                                Cukup Baik
+                                            </option>
+                                            <option value="rusak" {{ $data->kondisi == 'rusak' ? 'selected' : '' }}>
+                                                Rusak
+                                            </option>
+                                            <option value="rusak_berat"
+                                                {{ $data->kondisi == 'rusak_berat' ? 'selected' : '' }}>
+                                                Rusak Berat
+                                            </option>
+                                        </select>
                                         @error('kondisi')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>

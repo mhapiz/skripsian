@@ -38,6 +38,25 @@
                         </div>
                     </div>
                     <div class="card-body">
+                        <div class="row justify-content-end  ">
+                            <div class="col-4">
+                                <div class="form-group">
+                                    <select name="ruangan" id="ruangan" class="form-control">
+                                        <option value="">Semua</option>
+                                        <option value="-">Belum Ditempatkan</option>
+                                        @foreach ($ruangan as $r)
+                                            <option value="{{ $r->id_ruangan }}">
+                                                {{ $r->nama_ruangan }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <a href="javascript:void()" id="filterBtn" class="btn btn-light btn-air-light btn-block">
+                                    Filter
+                                </a>
+                            </div>
+                        </div>
                         <div class="table-responsive">
                             <table class="display table table-bordered" id="table">
                                 <thead>
@@ -47,7 +66,7 @@
                                         <th>Kode Barang + No. Reg</th>
                                         <th>Kondisi</th>
                                         <th>Ruangan</th>
-                                        <th>QR Code</th>
+                                        {{-- <th>QR Code</th> --}}
                                         <th width="50px">Aksi</th>
                                     </tr>
                                 </thead>
@@ -188,49 +207,8 @@
         }
 
         $(document).ready(function() {
-            $('#table').DataTable({
-                language: {
-                    "url": "//cdn.datatables.net/plug-ins/1.10.21/i18n/Indonesian.json",
-                    "sEmptyTable": "Tidads"
-                },
-                processing: true,
-                serverside: true,
-                ajax: "{{ route('admin.inventaris.getData') }}",
-                columns: [{
-                        data: 'DT_RowIndex',
-                        name: 'DT_RowIndex'
-                    },
-                    {
-                        data: 'nama_barang',
-                        name: 'nama_barang'
-                    },
-                    {
-                        data: 'kode',
-                        name: 'kode'
-                    },
-                    {
-                        data: 'kondisi',
-                        name: 'kondisi'
-                    },
-                    {
-                        data: 'ruangan',
-                        name: 'ruangan'
-                    },
-                    {
-                        data: 'qr',
-                        name: 'qr'
-                    },
-                    {
-                        data: "aksi",
-                        render: function(data) {
-                            return htmlDecode(data);
-                        }
-                    }
 
-                ]
-            });
             // ----
-
             var max_fields = 10;
             var wrapper = $("#wrapper");
             var add_button = $("#btnTambah");
@@ -295,6 +273,74 @@
                     x = 2
                 }
             });
+
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+
+            loadData();
+
+            function loadData(ruangan = '') {
+                $('#table').DataTable({
+                    language: {
+                        "url": "//cdn.datatables.net/plug-ins/1.10.21/i18n/Indonesian.json",
+                        "sEmptyTable": "Tidads"
+                    },
+                    processing: true,
+                    serverside: true,
+                    ajax: {
+                        url: "{{ route('admin.inventaris.getData') }}",
+                        data: {
+                            ruangan: ruangan,
+                        }
+                    },
+                    columns: [{
+                            data: 'DT_RowIndex',
+                            name: 'DT_RowIndex'
+                        },
+                        {
+                            data: 'nama_barang',
+                            name: 'nama_barang'
+                        },
+                        {
+                            data: 'kode',
+                            name: 'kode'
+                        },
+                        {
+                            data: 'kondisi',
+                            name: 'kondisi'
+                        },
+                        {
+                            data: 'ruangan',
+                            name: 'ruangan'
+                        },
+                        // {
+                        //     data: 'qr',
+                        //     name: 'qr'
+                        // },
+                        {
+                            data: "aksi",
+                            render: function(data) {
+                                return htmlDecode(data);
+                            }
+                        }
+
+                    ]
+                });
+            }
+
+            $('#filterBtn').click(function() {
+                var ruangan = $('#ruangan').val();
+                if (ruangan != '') {
+                    $('#table').DataTable().destroy();
+                    loadData(ruangan);
+                } else {
+                    $('#table').DataTable().destroy();
+                    loadData();
+                }
+            });
+
 
         });
     </script>

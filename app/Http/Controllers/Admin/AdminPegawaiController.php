@@ -6,6 +6,7 @@ use App\Models\Pegawai;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Pangkat;
+use Barryvdh\DomPDF\Facade\Pdf;
 use RealRashid\SweetAlert\Facades\Alert;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -36,7 +37,15 @@ class AdminPegawaiController extends Controller
             ->make(true);
     }
 
+    public function printRekap()
+    {
+        $data = Pegawai::with('pangkat')->get();
+        $pdf = Pdf::loadView('print.print-rekap-pegawai-semua', [
+            'data' => $data
+        ])->setPaper('a4', 'landscape');
 
+        return $pdf->stream();
+    }
     public function create()
     {
         $pangkat = Pangkat::all();

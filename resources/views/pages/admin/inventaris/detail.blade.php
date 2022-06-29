@@ -45,7 +45,14 @@
                                 </tr>
                                 <tr>
                                     <th>QR Code</i></th>
-                                    <td>{{ QrCode::size(500)->generate(route('admin.inventaris.detail', md5($data->id_inventaris))) }}
+                                    <td>{{ QrCode::size(200)->generate(route('inventaris-detail', md5($data->id_inventaris))) }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Foto Barang</th>
+                                    <td>
+                                        <img src="{{ asset('storage/barang/' . $data->barang->foto_path) }}"
+                                            alt="foto{{ $data->barang->nama_barang }}" width="200px">
                                     </td>
                                 </tr>
                                 <tr>

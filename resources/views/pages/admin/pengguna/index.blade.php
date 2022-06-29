@@ -1,18 +1,18 @@
 @extends('layouts.admin')
 
-@section('title', 'Pegawai')
+@section('title', 'Pengguna')
 @section('content')
     <div class="container-fluid">
         <div class="page-title">
             <div class="row">
                 <div class="col-6">
-                    <h3>Pegawai</h3>
+                    <h3>Pengguna</h3>
                 </div>
                 <div class="col-6">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item active"><a href="{{ route('admin.dashboard') }}">
                                 <i data-feather="home"></i></a></li>
-                        <li class="breadcrumb-item active">Pegawai </li>
+                        <li class="breadcrumb-item active">Pengguna </li>
                     </ol>
                 </div>
             </div>
@@ -22,16 +22,11 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header d-flex align-items-center justify-content-between">
-                        <h5>Tabel Data Pegawai</h5>
+                        <h5>Tabel Data Pengguna</h5>
 
                         <div class="d-flex">
-                            <a href="{{ route('admin.pegawai.printRekap') }}" class="btn btn-light btn-air-light mr-2"
-                                target="_blank">
-                                <i class="fa fa-print" aria-hidden="true"></i>
-                                <span>Rekap Pegawai</span>
-                            </a>
 
-                            <a href="{{ route('admin.pegawai.create') }}" class="btn btn-light btn-air-light">
+                            <a href="{{ route('admin.pengguna.create') }}" class="btn btn-light btn-air-light">
                                 Tambah Data
                             </a>
                         </div>
@@ -42,9 +37,8 @@
                                 <thead>
                                     <tr>
                                         <th>No.</th>
-                                        <th>Nama Pegawai</th>
-                                        <th>NIP</th>
-                                        <th>Pangkat - Golongan</th>
+                                        <th>Username</th>
+                                        <th>Role</th>
                                         <th width="50px">Aksi</th>
                                     </tr>
                                 </thead>
@@ -82,22 +76,18 @@
                 },
                 processing: true,
                 serverside: true,
-                ajax: "{{ route('admin.pegawai.getData') }}",
+                ajax: "{{ route('admin.pengguna.getData') }}",
                 columns: [{
                         data: 'DT_RowIndex',
                         name: 'DT_RowIndex'
                     },
                     {
-                        data: 'nama_pegawai',
-                        name: 'nama_pegawai'
+                        data: 'username',
+                        name: 'username'
                     },
                     {
-                        data: 'nip',
-                        name: 'nip'
-                    },
-                    {
-                        data: 'pangkat',
-                        name: 'pangkat'
+                        data: 'role',
+                        name: 'role'
                     },
                     {
                         data: "aksi",

@@ -15,7 +15,7 @@
                 <li class="sidebar-main-title pt-0">
                     <div>
                         <h6>Halaman Admin</h6>
-                        <p>Dashboard & Overview</p>
+                        <p>Dashboard & Pengguna</p>
                     </div>
                 </li>
 
@@ -24,6 +24,14 @@
                         href="{{ route('admin.dashboard') }}">
                         <i data-feather="home"></i>
                         <span>Dashboard</span>
+                    </a>
+                </li>
+
+                <li class="sidebar-list">
+                    <a class="sidebar-link sidebar-title link-nav {{ request()->is('admin/pengguna') ? 'active' : '' }}"
+                        href="{{ route('admin.pengguna.index') }}">
+                        <i data-feather="users"></i>
+                        <span>Pengguna</span>
                     </a>
                 </li>
 

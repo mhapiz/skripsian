@@ -32,6 +32,8 @@ class AuthController extends Controller
             //check role
             if (Auth::user()->role == 'admin') {
                 return redirect()->route('admin.dashboard');
+            } elseif (Auth::user()->role == 'pimpinan') {
+                return 'anda pimpinan';
             }
         } else { // false
             Alert::toast('Gagal Login!', 'error');
