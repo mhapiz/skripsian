@@ -76,9 +76,14 @@ class AdminInventarisController extends Controller
             ->make(true);
     }
 
-    public function printRekap()
+    public function printRekap(Request $request)
     {
-        $data = Inventaris::with(['barang', 'ruangan'])->get();
+        if ($request->kondisi == '') {
+            $data = Inventaris::with(['barang', 'ruangan'])->get();
+        } else {
+            $data = Inventaris::with(['barang', 'ruangan'])->where('kondisi', '=', $request->kondisi)->get();
+        }
+
         $pdf = Pdf::loadView('print.print-rekap-inventaris-semua', [
             'data' => $data
         ])->setPaper('a4', 'landscape');

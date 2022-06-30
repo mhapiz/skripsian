@@ -41,7 +41,15 @@
                             {{ $value->barang->kode_barang }} - {{ $value->register }}
                         </td>
                         <td>
-                            {{ $value->kondisi }}
+                            @if ($value->kondisi == 'baik')
+                                Baik
+                            @elseif ($value->kondisi == 'cukup_baik')
+                                Cukup Baik
+                            @elseif ($value->kondisi == 'rusak')
+                                Rusak
+                            @elseif ($value->kondisi == 'rusak_berat')
+                                Rusak Berat
+                            @endif
                         </td>
                         <td>
                             {{ $value->ruangan_id != null ? $value->ruangan->nama_ruangan : 'Belum Ditentukan' }}

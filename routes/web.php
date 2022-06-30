@@ -20,18 +20,9 @@ use App\Http\Controllers\Admin\AdminSuplierController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AutoCompleteController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\UserProfileController;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
 
 Route::get('login', [AuthController::class, 'index'])->name('login.view');
 Route::post('login-proses', [AuthController::class, 'loginProses'])->name('login.proses');
@@ -48,6 +39,10 @@ Route::post('autocomplete-barang', [AutoCompleteController::class, 'autocomplete
 Route::post('autocomplete-aset', [AutoCompleteController::class, 'autocompleteAset'])->name('autocompleteAset');
 
 Route::get('detail/{id}', [HomeController::class, 'inventarisDetail'])->name('inventaris-detail');
+
+Route::get('profil', [UserProfileController::class, 'index'])->name('my-profile');
+Route::put('profil/update/{id}', [UserProfileController::class, 'update'])->name('update.my-profile');
+
 
 Route::prefix('admin')
     ->middleware('auth')
@@ -151,6 +146,8 @@ Route::prefix('admin')
             Route::get('get-data', [AdminGajiPegawaiController::class, 'getData'])->name('admin.gaji-pegawai.getData');
 
             Route::get('/print-rekap', [AdminGajiPegawaiController::class, 'printRekap'])->name('admin.gaji-pegawai.printRekap');
+            Route::get('/slip-gaji/{id}', [AdminGajiPegawaiController::class, 'printDetail'])->name('admin.gaji-pegawai.printDetail');
+
 
             Route::get('/store-this-month', [AdminGajiPegawaiController::class, 'storeMore'])->name('admin.gaji-pegawai.storeMore');
 
@@ -171,7 +168,7 @@ Route::prefix('admin')
             Route::get('/detail/{id}', [AdminBarangMasukController::class, 'detail'])->name('admin.barang-masuk.detail');
 
             Route::get('/print-pemeriksaan/{id}', [AdminBarangMasukController::class, 'printPemeriksaan'])->name('admin.barang-masuk.printPemeriksaan');
-            Route::get('/print-rekap', [AdminBarangMasukController::class, 'printRekap'])->name('admin.barang-masuk.printRekap');
+            Route::post('/print-rekap', [AdminBarangMasukController::class, 'printRekap'])->name('admin.barang-masuk.printRekap');
             Route::get('/print-detail/{id}', [AdminBarangMasukController::class, 'printDetail'])->name('admin.barang-masuk.printDetail');
 
             Route::get('/add-to-inventaris/{id}', [AdminBarangMasukController::class, 'addToInventaris'])->name('admin.barang-masuk.addToInventaris');
@@ -194,8 +191,7 @@ Route::prefix('admin')
             Route::post('/store', [AdminPemeriksaanBarangController::class, 'store'])->name('admin.pemeriksaan-barang.store');
 
             Route::get('/print-pemeriksaan/{id}', [AdminPemeriksaanBarangController::class, 'printPemeriksaan'])->name('admin.pemeriksaan-barang.printPemeriksaan');
-            Route::get('/print-rekap', [AdminPemeriksaanBarangController::class, 'printRekap'])->name('admin.pemeriksaan-barang.printRekap');
-
+            Route::post('/print-rekap', [AdminPemeriksaanBarangController::class, 'printRekap'])->name('admin.pemeriksaan-barang.printRekap');
 
             Route::get('/edit/{id}', [AdminPemeriksaanBarangController::class, 'edit'])->name('admin.pemeriksaan-barang.edit');
             Route::put('/update/{id}', [AdminPemeriksaanBarangController::class, 'update'])->name('admin.pemeriksaan-barang.update');
@@ -209,7 +205,7 @@ Route::prefix('admin')
             Route::get('get-data', [AdminSerahTerimaController::class, 'getData'])->name('admin.serah-terima-barang.getData');
 
             Route::get('/print-serah-terima/{id}', [AdminSerahTerimaController::class, 'printSerahTerima'])->name('admin.serah-terima-barang.printSerahTerima');
-            Route::get('/print-rekap', [AdminSerahTerimaController::class, 'printRekap'])->name('admin.serah-terima-barang.printRekap');
+            Route::post('/print-rekap', [AdminSerahTerimaController::class, 'printRekap'])->name('admin.serah-terima-barang.printRekap');
         });
 
         // Inventaris
@@ -217,7 +213,7 @@ Route::prefix('admin')
             Route::get('/', [AdminInventarisController::class, 'index'])->name('admin.inventaris.index');
             Route::get('get-data', [AdminInventarisController::class, 'getData'])->name('admin.inventaris.getData');
 
-            Route::get('/print-rekap', [AdminInventarisController::class, 'printRekap'])->name('admin.inventaris.printRekap');
+            Route::post('/print-rekap', [AdminInventarisController::class, 'printRekap'])->name('admin.inventaris.printRekap');
 
             Route::get('detail/{id}', [AdminInventarisController::class, 'detail'])->name('admin.inventaris.detail');
 
@@ -244,7 +240,7 @@ Route::prefix('admin')
             Route::get('/detail/{id}', [AdminAsetMasukController::class, 'detail'])->name('admin.aset-masuk.detail');
 
             Route::get('/print-pemeriksaan/{id}', [AdminAsetMasukController::class, 'printPemeriksaan'])->name('admin.aset-masuk.printPemeriksaan');
-            Route::get('/print-rekap', [AdminAsetMasukController::class, 'printRekap'])->name('admin.aset-masuk.printRekap');
+            Route::post('/print-rekap', [AdminAsetMasukController::class, 'printRekap'])->name('admin.aset-masuk.printRekap');
             Route::get('/print-detail/{id}', [AdminAsetMasukController::class, 'printDetail'])->name('admin.aset-masuk.printDetail');
 
             Route::get('/add-to-inventaris/{id}', [AdminAsetMasukController::class, 'addToInventaris'])->name('admin.aset-masuk.addToInventaris');

@@ -24,11 +24,12 @@
                     <div class="card-header d-flex align-items-center justify-content-between">
                         <h5>Tabel Data Barang Masuk</h5>
                         <div>
-                            <a href="{{ route('admin.barang-masuk.printRekap') }}" class="btn btn-light btn-air-light"
-                                target="_blank">
+                            <button type="button" class="btn btn-light btn-air-light" data-toggle="modal"
+                                data-target="#exampleModal">
                                 <i class="fa fa-print" aria-hidden="true"></i>
-                                <span>Rekap Barang</span>
-                            </a>
+                                <span>Rekap Barang Masuk</span>
+                            </button>
+
                             <a href="{{ route('admin.barang-masuk.create') }}" class="btn btn-light btn-air-light">
                                 Tambah Data
                             </a>
@@ -56,15 +57,76 @@
             </div>
         </div>
     </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Pilih Tanggal</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="{{ route('admin.barang-masuk.printRekap') }}" method="POST" id="exportForm">
+                        @csrf
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label>Dari Tanggal</label>
+                                    <input type="text" name="dari_tanggal" id="dari_tanggal" class="form-control tanggal"
+                                        form="exportForm">
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label>Sampai Tanggal</label>
+                                    <input type="text" name="sampai_tanggal" id="sampai_tanggal"
+                                        class="form-control tanggal" form="exportForm">
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group form-check">
+                                    <input type="checkbox" class="form-check-input" id="checkBox" name="semua"
+                                        form="exportForm">
+                                    <label class="form-check-label" id="checkBox">Semua</label>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                    <button type="submit" class="btn btn-primary" form="exportForm">Export</button>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @push('tambahStyle')
     <link rel="stylesheet" href="{{ asset('assets/css/datatables.min.css') }}">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 @endpush
 
 @push('tambahScript')
     <script src="{{ asset('assets/js/datatables.min.js') }}"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+    <script src="https://npmcdn.com/flatpickr/dist/l10n/id.js"></script>
+
     <script>
+        flatpickr.localize(flatpickr.l10ns.id);
+        $('.tanggal').flatpickr({
+            allowInput: true,
+            altInput: true,
+            altFormat: "j F Y",
+            dateFormat: "Y-m-d",
+        });
+
         function htmlDecode(data) {
             var txt = document.createElement('textarea');
             txt.innerHTML = data;
@@ -73,6 +135,7 @@
 
 
         $(document).ready(function() {
+
             $('#table').DataTable({
                 language: {
                     "url": "//cdn.datatables.net/plug-ins/1.10.21/i18n/Indonesian.json",
@@ -109,6 +172,24 @@
                     }
 
                 ]
+            });
+
+            $("#checkBox").change(function() {
+                if ($(this).prop("checked")) {
+                    $('.tanggal').flatpickr({
+                        clickOpens: false,
+                        defaultDate: null,
+                    });
+                    $("#dari_tanggal").val('');
+                    $("#sampai_tanggal").val('');
+                } else {
+                    $('.tanggal').flatpickr({
+                        allowInput: true,
+                        altInput: true,
+                        altFormat: "j F Y",
+                        dateFormat: "Y-m-d",
+                    });
+                }
             });
 
         });

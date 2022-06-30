@@ -25,7 +25,7 @@ class AdminBarangMasukController extends Controller
 
     public function getData()
     {
-        $data = BarangMasuk::with('suplier')->latest();
+        $data = BarangMasuk::with('suplier')->orderBy('tanggal', 'DESC');
 
         return DataTables::eloquent($data)
             ->addIndexColumn()
@@ -86,9 +86,13 @@ class AdminBarangMasukController extends Controller
         }
     }
 
-    public function printRekap()
+    public function printRekap(Request $request)
     {
-        $data = BarangMasuk::with(['suplier'])->get();
+        if ($request->semua) {
+            $data = BarangMasuk::with(['suplier'])->get();
+        } else {
+            $data = BarangMasuk::with(['suplier'])->whereBetween('tanggal', [$request->dari_tanggal, $request->sampai_tanggal])->get();
+        }
 
         $pdf = Pdf::loadView('print.print-rekap-barang-masuk', [
             'data' => $data

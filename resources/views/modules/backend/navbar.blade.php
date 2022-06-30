@@ -52,7 +52,7 @@
                     </div>
                     <ul class="profile-dropdown onhover-show-div">
                         <li>
-                            <a href="#" data-original-title="" title="">
+                            <a href="{{ route('my-profile') }}" data-original-title="" title="">
                                 <i data-feather="user"></i>
                                 <span>Account </span></a>
                         </li>

@@ -25,11 +25,12 @@
                         <h5>Tabel Data Inventaris</h5>
 
                         <div class="d-flex">
-                            <a href="{{ route('admin.inventaris.printRekap') }}" class="btn btn-light btn-air-light mr-2"
-                                target="_blank">
+                            <button type="button" class="btn btn-light btn-air-light" data-toggle="modal"
+                                data-target="#exampleModal">
                                 <i class="fa fa-print" aria-hidden="true"></i>
                                 <span>Rekap Inventaris</span>
-                            </a>
+
+                            </button>
                             <!-- Button trigger modal -->
                             <button type="button" class="btn btn-light btn-air-light" data-toggle="modal"
                                 data-target="#distribusiBarangModal">
@@ -174,6 +175,51 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
                     <button type="submit" class="btn btn-primary" form="distribusiForm">Simpan</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Filter Barang Inventaris</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="{{ route('admin.inventaris.printRekap') }}" method="POST" id="exportForm">
+                        @csrf
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label>Kondisi Barang</label>
+                                    <select name="kondisi" class="form-control" form="exportForm">
+                                        <option value="">Semua</option>
+                                        <option value="baik">
+                                            Baik
+                                        </option>
+                                        <option value="cukup_baik">
+                                            Cukup Baik
+                                        </option>
+                                        <option value="rusak">
+                                            Rusak
+                                        </option>
+                                        <option value="rusak_berat">
+                                            Rusak Berat
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                    <button type="submit" class="btn btn-primary" form="exportForm">Export</button>
                 </div>
             </div>
         </div>

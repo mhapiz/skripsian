@@ -6,8 +6,10 @@ use App\Models\Pegawai;
 use App\Models\GajiPegawai;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Pangkat;
 use Barryvdh\DomPDF\Facade\Pdf;
 use RealRashid\SweetAlert\Facades\Alert;
+use Riskihajar\Terbilang\Facades\Terbilang;
 use Yajra\DataTables\Facades\DataTables;
 
 class AdminGajiPegawaiController extends Controller
@@ -26,8 +28,9 @@ class AdminGajiPegawaiController extends Controller
             ->addColumn('aksi', function ($row) {
                 $editUrl = route('admin.gaji-pegawai.edit', $row->id_gaji_pegawai);
                 $deleteUrl = route('admin.gaji-pegawai.destroy', $row->id_gaji_pegawai);
+                $printUrl = route('admin.gaji-pegawai.printDetail', $row->id_gaji_pegawai);
 
-                return view('modules.backend._formActions', compact('editUrl', 'deleteUrl'));
+                return view('modules.backend._formActionsWithPrint', compact('editUrl', 'deleteUrl', 'printUrl'));
             })
             ->editColumn('nama_pegawai', function ($row) {
                 return $row->pegawai->nama_pegawai;
@@ -81,6 +84,22 @@ class AdminGajiPegawaiController extends Controller
             })
             ->rawColumns(['aksi'])
             ->make(true);
+    }
+
+    public function printDetail($id)
+    {
+        $data = GajiPegawai::with('pegawai')->findOrFail($id);
+
+        $pangkat = Pangkat::find($data->pegawai->pangkat_id);
+
+        $data['gaji_terbilang'] = Terbilang::make($data->total_gaji);
+
+        $pdf = Pdf::loadView('print.print-detail-gaji-pegawai', [
+            'data' => $data,
+            'pangkat' => $pangkat,
+        ])->setPaper('a4', 'landscape');
+
+        return $pdf->stream();
     }
 
     public function printRekap()

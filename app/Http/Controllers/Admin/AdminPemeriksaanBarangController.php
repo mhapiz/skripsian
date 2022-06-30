@@ -60,12 +60,17 @@ class AdminPemeriksaanBarangController extends Controller
         return $pdf->stream();
     }
 
-    public function printRekap()
+    public function printRekap(Request $request)
     {
-        $data = PemeriksaanBarang::with('barangMasuk')->get();
+        if ($request->semua) {
+            $data = PemeriksaanBarang::with('barangMasuk')->get();
+        } else {
+            $data = PemeriksaanBarang::with('barangMasuk')->whereBetween('tanggal_pemeriksaan', [$request->dari_tanggal, $request->sampai_tanggal])->get();
+        }
+
         $pdf = Pdf::loadView('print.print-rekap-pemeriksaan', [
             'data' => $data,
-        ]);
+        ])->setPaper('a4', 'landscape');
 
         return $pdf->stream();
     }

@@ -32,6 +32,9 @@ class AdminSerahTerimaController extends Controller
             ->editColumn('ruangan', function ($row) {
                 return $row->ruangan->nama_ruangan;
             })
+            ->editColumn('tanggal_serah_terima', function ($row) {
+                return Carbon::parse($row->tanggal_serah_terima)->isoFormat('dddd, D MMMM Y');
+            })
             ->rawColumns(['aksi', 'pemeriksa'])
             ->make(true);
     }
@@ -52,12 +55,17 @@ class AdminSerahTerimaController extends Controller
         return $pdf->stream();
     }
 
-    public function printRekap()
+    public function printRekap(Request $request)
     {
-        $data = SerahTerima::with('ruangan')->latest()->get();
+        if ($request->semua) {
+            $data = SerahTerima::with('ruangan')->latest()->get();
+        } else {
+            $data = SerahTerima::with('ruangan')->whereBetween('tanggal_serah_terima', [$request->dari_tanggal, $request->sampai_tanggal])->latest()->get();
+        }
+
         $pdf = Pdf::loadView('print.print-rekap-serah-terima', [
             'data' => $data,
-        ]);
+        ])->setPaper('a4', 'landscape');
 
         return $pdf->stream();
     }

@@ -62,9 +62,13 @@ class AdminAsetMasukController extends Controller
         return redirect()->route('admin.aset-masuk.printDetail', $id);
     }
 
-    public function printRekap()
+    public function printRekap(Request $request)
     {
-        $data = AsetMasuk::with(['suplier'])->get();
+        if ($request->semua) {
+            $data = AsetMasuk::with(['suplier'])->get();
+        } else {
+            $data = AsetMasuk::with(['suplier'])->whereBetween('tanggal', [$request->dari_tanggal, $request->sampai_tanggal])->get();
+        }
 
         $pdf = Pdf::loadView('print.print-rekap-aset-masuk', [
             'data' => $data
