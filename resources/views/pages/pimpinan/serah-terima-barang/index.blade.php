@@ -10,7 +10,7 @@
                 </div>
                 <div class="col-6">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item active"><a href="{{ route('admin.dashboard') }}">
+                        <li class="breadcrumb-item active"><a href="{{ route('pimpinan.dashboard') }}">
                                 <i data-feather="home"></i></a></li>
                         <li class="breadcrumb-item active">Serah Terima Barang </li>
                     </ol>
@@ -39,6 +39,7 @@
                                         <th>Nomor</th>
                                         <th>Tanggal</th>
                                         <th>Ruangan</th>
+                                        <th width="50px">Aksi</th>
 
                                     </tr>
                                 </thead>
@@ -63,7 +64,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('admin.serah-terima-barang.printRekap') }}" method="POST" id="exportForm">
+                    <form action="{{ route('pimpinan.serah-terima-barang.printRekap') }}" method="POST" id="exportForm">
                         @csrf
                         <div class="row">
                             <div class="col-6">
@@ -121,7 +122,11 @@
             dateFormat: "Y-m-d",
         });
 
-
+        function htmlDecode(data) {
+            var txt = document.createElement('textarea');
+            txt.innerHTML = data;
+            return txt.value
+        }
 
         $(document).ready(function() {
 
@@ -132,7 +137,7 @@
                 },
                 processing: true,
                 serverside: true,
-                ajax: "{{ route('admin.serah-terima-barang.getData') }}",
+                ajax: "{{ route('pimpinan.serah-terima-barang.getData') }}",
                 columns: [{
                         data: 'DT_RowIndex',
                         name: 'DT_RowIndex'
@@ -149,7 +154,12 @@
                         data: 'ruangan',
                         name: 'ruangan'
                     },
-
+                    {
+                        data: "aksi",
+                        render: function(data) {
+                            return htmlDecode(data);
+                        }
+                    }
 
                 ]
             });

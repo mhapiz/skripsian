@@ -10,7 +10,7 @@
                 </div>
                 <div class="col-6">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item active"><a href="{{ route('admin.dashboard') }}">
+                        <li class="breadcrumb-item active"><a href="{{ route('pimpinan.dashboard') }}">
                                 <i data-feather="home"></i></a></li>
                         <li class="breadcrumb-item active">Barang </li>
                     </ol>
@@ -25,7 +25,7 @@
                         <h5>Tambah Data Barang</h5>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('admin.barang.store') }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('pimpinan.barang.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="row">
                                 <div class="col-md-4">

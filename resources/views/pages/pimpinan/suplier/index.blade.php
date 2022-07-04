@@ -10,7 +10,7 @@
                 </div>
                 <div class="col-6">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item active"><a href="{{ route('admin.dashboard') }}">
+                        <li class="breadcrumb-item active"><a href="{{ route('pimpinan.dashboard') }}">
                                 <i data-feather="home"></i></a></li>
                         <li class="breadcrumb-item active">Suplier </li>
                     </ol>
@@ -23,7 +23,7 @@
                 <div class="card">
                     <div class="card-header d-flex align-items-center justify-content-between">
                         <h5>Tabel Data Suplier</h5>
-                        <a href="{{ route('admin.suplier.create') }}" class="btn btn-light btn-air-light">
+                        <a href="{{ route('pimpinan.suplier.create') }}" class="btn btn-light btn-air-light">
                             Tambah Data
                         </a>
                     </div>
@@ -67,7 +67,7 @@
                 },
                 processing: true,
                 serverside: true,
-                ajax: "{{ route('admin.suplier.getData') }}",
+                ajax: "{{ route('pimpinan.suplier.getData') }}",
                 columns: [{
                         data: 'DT_RowIndex',
                         name: 'DT_RowIndex'

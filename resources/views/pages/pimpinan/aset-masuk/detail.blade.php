@@ -10,7 +10,7 @@
                 </div>
                 <div class="col-6">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item active"><a href="{{ route('admin.dashboard') }}">
+                        <li class="breadcrumb-item active"><a href="{{ route('pimpinan.dashboard') }}">
                                 <i data-feather="home"></i></a></li>
                         <li class="breadcrumb-item active">Detail Aset </li>
                     </ol>
@@ -22,11 +22,11 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header d-flex justify-content-between">
-                        <a href="{{ route('admin.aset-masuk.index') }}" class="btn btn-light btn-air-light">
+                        <a href="{{ route('pimpinan.aset-masuk.index') }}" class="btn btn-light btn-air-light">
                             <i class="fa fa-arrow-left" aria-hidden="true"></i>
                         </a>
 
-                        <a href="{{ route('admin.aset-masuk.printDetail', $data->id_aset_masuk) }}"
+                        <a href="{{ route('pimpinan.aset-masuk.printDetail', $data->id_aset_masuk) }}"
                             class="btn btn-light btn-air-light" target="_blank">
                             <i class="fa fa-print" aria-hidden="true"></i>
                             <span>Detail Aset</span>

@@ -23,6 +23,11 @@ class PimpinanGajiPegawaiController extends Controller
 
         return DataTables::eloquent($data)
             ->addIndexColumn()
+            ->addColumn('aksi', function ($row) {
+                $printUrl = route('pimpinan.gaji-pegawai.printDetail', $row->id_gaji_pegawai);
+
+                return view('modules.backend._formActionPrint', compact('printUrl'));
+            })
             ->editColumn('nama_pegawai', function ($row) {
                 return $row->pegawai->nama_pegawai;
             })
@@ -73,7 +78,7 @@ class PimpinanGajiPegawaiController extends Controller
             ->editColumn('total_gaji', function ($row) {
                 return 'Rp. ' . number_format($row->total_gaji, 0, ',', '.');
             })
-            ->rawColumns([''])
+            ->rawColumns(['aksi'])
             ->make(true);
     }
 

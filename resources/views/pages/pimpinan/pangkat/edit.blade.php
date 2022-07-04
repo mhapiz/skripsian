@@ -11,7 +11,7 @@
                 </div>
                 <div class="col-6">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item active"><a href="{{ route('admin.dashboard') }}">
+                        <li class="breadcrumb-item active"><a href="{{ route('pimpinan.dashboard') }}">
                                 <i data-feather="home"></i></a></li>
                         <li class="breadcrumb-item active">Pangkat </li>
                     </ol>
@@ -26,7 +26,7 @@
                         <h5>Edit Data Pangkat</h5>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('admin.pangkat.update', $data->id_pangkat) }}" method="POST">
+                        <form action="{{ route('pimpinan.pangkat.update', $data->id_pangkat) }}" method="POST">
                             @csrf
                             @method('PUT')
                             <div class="row">

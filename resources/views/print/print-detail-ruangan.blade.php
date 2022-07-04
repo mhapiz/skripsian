@@ -55,11 +55,13 @@
                     <th width="50px">No.</th>
                     <th>Nama Barang</th>
                     <th>Kode Barang + Register</th>
+                    <th>Kondisi</th>
                 </tr>
                 <tr style="font-size: .8rem;">
                     <td style="padding: 2px">1</td>
                     <td style="padding: 2px">2</td>
                     <td style="padding: 2px">3</td>
+                    <td style="padding: 2px">4</td>
                 </tr>
             </thead>
 
@@ -74,6 +76,17 @@
                             {{ App\Models\Barang::find($inven->barang_id)->kode_barang }}
                             -
                             {{ $inven->register }}
+                        </td>
+                        <td>
+                            @if ($inven->kondisi == 'baik')
+                                Baik
+                            @elseif ($inven->kondisi == 'cukup_baik')
+                                Cukup Baik
+                            @elseif ($inven->kondisi == 'rusak')
+                                Rusak
+                            @elseif ($inven->kondisi == 'rusak_berat')
+                                Rusak Berat
+                            @endif
                         </td>
                     </tr>
                 @endforeach

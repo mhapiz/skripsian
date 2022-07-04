@@ -10,7 +10,7 @@
                 </div>
                 <div class="col-6">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item active"><a href="{{ route('admin.dashboard') }}">
+                        <li class="breadcrumb-item active"><a href="{{ route('pimpinan.dashboard') }}">
                                 <i data-feather="home"></i></a></li>
                         <li class="breadcrumb-item active">Suplier </li>
                     </ol>
@@ -25,7 +25,7 @@
                         <h5>Tambah Data Suplier</h5>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('admin.aset.store') }}" method="POST">
+                        <form action="{{ route('pimpinan.aset.store') }}" method="POST">
                             @csrf
                             <div class="row">
                                 <div class="col-md-6">

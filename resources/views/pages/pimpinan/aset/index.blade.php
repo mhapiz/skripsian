@@ -10,7 +10,7 @@
                 </div>
                 <div class="col-6">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item active"><a href="{{ route('admin.dashboard') }}">
+                        <li class="breadcrumb-item active"><a href="{{ route('pimpinan.dashboard') }}">
                                 <i data-feather="home"></i></a></li>
                         <li class="breadcrumb-item active">Aset </li>
                     </ol>
@@ -25,7 +25,7 @@
                         <h5>Tabel Data Aset</h5>
 
                         <div class="d-flex">
-                            <a href="{{ route('admin.aset.printRekap') }}" class="btn btn-light btn-air-light mr-2"
+                            <a href="{{ route('pimpinan.aset.printRekap') }}" class="btn btn-light btn-air-light mr-2"
                                 target="_blank">
                                 <i class="fa fa-print" aria-hidden="true"></i>
                                 <span>Rekap Aset</span>
@@ -87,7 +87,7 @@
                 },
                 processing: true,
                 serverside: true,
-                ajax: "{{ route('admin.aset.getData') }}",
+                ajax: "{{ route('pimpinan.aset.getData') }}",
                 columns: [{
                         data: 'DT_RowIndex',
                         name: 'DT_RowIndex'

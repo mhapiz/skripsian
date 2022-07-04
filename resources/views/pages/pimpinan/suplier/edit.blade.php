@@ -11,7 +11,7 @@
                 </div>
                 <div class="col-6">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item active"><a href="{{ route('admin.dashboard') }}">
+                        <li class="breadcrumb-item active"><a href="{{ route('pimpinan.dashboard') }}">
                                 <i data-feather="home"></i></a></li>
                         <li class="breadcrumb-item active">Suplier </li>
                     </ol>
@@ -26,15 +26,15 @@
                         <h5>Edit Data Suplier</h5>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('admin.suplier.update', $data->id_suplier) }}" method="POST">
+                        <form action="{{ route('pimpinan.suplier.update', $data->id_suplier) }}" method="POST">
                             @csrf
                             @method('PUT')
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Nama Suplier</label>
-                                        <input class="form-control @error('nama_suplier') is-invalid @enderror " type="text"
-                                            name="nama_suplier" value="{{ $data->nama_suplier }}"
+                                        <input class="form-control @error('nama_suplier') is-invalid @enderror "
+                                            type="text" name="nama_suplier" value="{{ $data->nama_suplier }}"
                                             placeholder="Nama Suplier">
                                         @error('nama_suplier')
                                             <div class="invalid-feedback">

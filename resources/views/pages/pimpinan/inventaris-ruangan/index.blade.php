@@ -10,7 +10,7 @@
                 </div>
                 <div class="col-6">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item active"><a href="{{ route('admin.dashboard') }}">
+                        <li class="breadcrumb-item active"><a href="{{ route('pimpinan.dashboard') }}">
                                 <i data-feather="home"></i></a></li>
                         <li class="breadcrumb-item active">Inventaris Ruangan </li>
                     </ol>
@@ -25,7 +25,7 @@
                         <h5>Tabel Data Inventaris Ruangan</h5>
 
                         <div class="d-flex ">
-                            <a href="{{ route('admin.inventaris-ruangan.printRekap') }}"
+                            <a href="{{ route('pimpinan.inventaris-ruangan.printRekap') }}"
                                 class="btn btn-light btn-air-light mx-2 " target="_blank">
                                 Print Rekap
                             </a>
@@ -40,6 +40,7 @@
                                         <th>Nama Ruangan</th>
                                         <th>Penanggung Jawab Ruangan</th>
                                         <th>Jumlah Barang Inventaris</th>
+                                        <th width="50px">Aksi</th>
 
                                     </tr>
                                 </thead>
@@ -63,6 +64,13 @@
 
     <script>
         $(document).ready(function() {
+
+            function htmlDecode(data) {
+                var txt = document.createElement('textarea');
+                txt.innerHTML = data;
+                return txt.value
+            }
+
             $('#table').DataTable({
                 language: {
                     "url": "//cdn.datatables.net/plug-ins/1.10.21/i18n/Indonesian.json",
@@ -70,7 +78,7 @@
                 },
                 processing: true,
                 serverside: true,
-                ajax: "{{ route('admin.inventaris-ruangan.getData') }}",
+                ajax: "{{ route('pimpinan.inventaris-ruangan.getData') }}",
                 columns: [{
                         data: 'DT_RowIndex',
                         name: 'DT_RowIndex'
@@ -87,8 +95,12 @@
                         data: 'jumlah_barang_inventaris',
                         name: 'jumlah_barang_inventaris'
                     },
-
-
+                    {
+                        data: "aksi",
+                        render: function(data) {
+                            return htmlDecode(data);
+                        }
+                    }
                 ]
             });
 

@@ -10,7 +10,7 @@
                 </div>
                 <div class="col-6">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item active"><a href="{{ route('admin.dashboard') }}">
+                        <li class="breadcrumb-item active"><a href="{{ route('pimpinan.dashboard') }}">
                                 <i data-feather="home"></i></a></li>
                         <li class="breadcrumb-item active">Pegawai </li>
                     </ol>
@@ -25,7 +25,7 @@
                         <h5>Tabel Data Pegawai</h5>
 
                         <div class="d-flex">
-                            <a href="{{ route('admin.pegawai.printRekap') }}" class="btn btn-light btn-air-light mr-2"
+                            <a href="{{ route('pimpinan.pegawai.printRekap') }}" class="btn btn-light btn-air-light mr-2"
                                 target="_blank">
                                 <i class="fa fa-print" aria-hidden="true"></i>
                                 <span>Rekap Pegawai</span>
@@ -73,7 +73,7 @@
                 },
                 processing: true,
                 serverside: true,
-                ajax: "{{ route('admin.pegawai.getData') }}",
+                ajax: "{{ route('pimpinan.pegawai.getData') }}",
                 columns: [{
                         data: 'DT_RowIndex',
                         name: 'DT_RowIndex'

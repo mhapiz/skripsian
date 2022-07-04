@@ -10,7 +10,7 @@
                 </div>
                 <div class="col-6">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item active"><a href="{{ route('admin.dashboard') }}">
+                        <li class="breadcrumb-item active"><a href="{{ route('pimpinan.dashboard') }}">
                                 <i data-feather="home"></i></a></li>
                         <li class="breadcrumb-item active">Detail Inventaris Ruangan </li>
                     </ol>
@@ -24,7 +24,7 @@
                     <div class="card-header d-flex justify-content-between">
                         <h5>Detail Inventaris Ruangan</h5>
 
-                        <a href="{{ route('admin.inventaris-ruangan.printDetail', $data->id_ruangan) }}"
+                        <a href="{{ route('pimpinan.inventaris-ruangan.printDetail', $data->id_ruangan) }}"
                             class="btn btn-light btn-air-light" target="_blank">
                             <i class="fa fa-print" aria-hidden="true"></i>
                             <span>Detail Inventaris Ruangan</span>
@@ -50,6 +50,7 @@
                                                     <th width="50px">No.</th>
                                                     <th>Nama Barang</th>
                                                     <th>Kode Barang + Register</th>
+                                                    <th>Kondisi</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -63,6 +64,17 @@
                                                             {{ App\Models\Barang::find($inven->barang_id)->kode_barang }}
                                                             -
                                                             {{ $inven->register }}
+                                                        </td>
+                                                        <td>
+                                                            @if ($inven->kondisi == 'baik')
+                                                                <div class="badge badge-pill badge-success">Baik</div>
+                                                            @elseif ($inven->kondisi == 'cukup_baik')
+                                                                <div class="badge badge-pill badge-light">Cukup Baik</div>
+                                                            @elseif ($inven->kondisi == 'rusak')
+                                                                <div class="badge badge-pill badge-warning">Rusak</div>
+                                                            @elseif ($inven->kondisi == 'rusak_berat')
+                                                                <div class="badge badge-pill badge-danger">Rusak Berat</div>
+                                                            @endif
                                                         </td>
                                                     </tr>
                                                 @endforeach

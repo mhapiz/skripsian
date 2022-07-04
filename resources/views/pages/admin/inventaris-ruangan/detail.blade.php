@@ -50,6 +50,7 @@
                                                     <th width="50px">No.</th>
                                                     <th>Nama Barang</th>
                                                     <th>Kode Barang + Register</th>
+                                                    <th>Kondisi</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -63,6 +64,17 @@
                                                             {{ App\Models\Barang::find($inven->barang_id)->kode_barang }}
                                                             -
                                                             {{ $inven->register }}
+                                                        </td>
+                                                        <td>
+                                                            @if ($inven->kondisi == 'baik')
+                                                                <div class="badge badge-pill badge-success">Baik</div>
+                                                            @elseif ($inven->kondisi == 'cukup_baik')
+                                                                <div class="badge badge-pill badge-light">Cukup Baik</div>
+                                                            @elseif ($inven->kondisi == 'rusak')
+                                                                <div class="badge badge-pill badge-warning">Rusak</div>
+                                                            @elseif ($inven->kondisi == 'rusak_berat')
+                                                                <div class="badge badge-pill badge-danger">Rusak Berat</div>
+                                                            @endif
                                                         </td>
                                                     </tr>
                                                 @endforeach

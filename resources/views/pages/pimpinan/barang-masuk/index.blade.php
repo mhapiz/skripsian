@@ -10,7 +10,7 @@
                 </div>
                 <div class="col-6">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item active"><a href="{{ route('admin.dashboard') }}">
+                        <li class="breadcrumb-item active"><a href="{{ route('pimpinan.dashboard') }}">
                                 <i data-feather="home"></i></a></li>
                         <li class="breadcrumb-item active">Barang Masuk </li>
                     </ol>
@@ -30,9 +30,6 @@
                                 <span>Rekap Barang Masuk</span>
                             </button>
 
-                            <a href="{{ route('admin.barang-masuk.create') }}" class="btn btn-light btn-air-light">
-                                Tambah Data
-                            </a>
                         </div>
                     </div>
                     <div class="card-body">
@@ -44,7 +41,7 @@
                                         <th>Tanggal Masuk</th>
                                         <th>Suplier</th>
                                         <th>Total Harga</th>
-                                        <th width="250px">Aksi</th>
+                                        <th width="50px">Aksi</th>
 
                                     </tr>
                                 </thead>
@@ -69,7 +66,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('admin.barang-masuk.printRekap') }}" method="POST" id="exportForm">
+                    <form action="{{ route('pimpinan.barang-masuk.printRekap') }}" method="POST" id="exportForm">
                         @csrf
                         <div class="row">
                             <div class="col-6">
@@ -127,7 +124,11 @@
             dateFormat: "Y-m-d",
         });
 
-
+        function htmlDecode(data) {
+            var txt = document.createElement('textarea');
+            txt.innerHTML = data;
+            return txt.value
+        }
 
 
         $(document).ready(function() {
@@ -139,7 +140,7 @@
                 },
                 processing: true,
                 serverside: true,
-                ajax: "{{ route('admin.barang-masuk.getData') }}",
+                ajax: "{{ route('pimpinan.barang-masuk.getData') }}",
                 columns: [{
                         data: 'DT_RowIndex',
                         name: 'DT_RowIndex'
@@ -157,9 +158,11 @@
                         name: 'total_harga'
                     },
                     {
-                        data: 'aksiLain',
-                        name: 'aksiLain'
-                    },
+                        data: "aksi",
+                        render: function(data) {
+                            return htmlDecode(data);
+                        }
+                    }
 
 
                 ]

@@ -10,7 +10,7 @@
                 </div>
                 <div class="col-6">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item active"><a href="{{ route('admin.dashboard') }}">
+                        <li class="breadcrumb-item active"><a href="{{ route('pimpinan.dashboard') }}">
                                 <i data-feather="home"></i></a></li>
                         <li class="breadcrumb-item active">Gaji Pegawai </li>
                     </ol>
@@ -25,7 +25,7 @@
                         <h5>Tabel Data Gaji Pegawai</h5>
 
                         <div class="d-flex ">
-                            <a href="{{ route('admin.gaji-pegawai.printRekap') }}"
+                            <a href="{{ route('pimpinan.gaji-pegawai.printRekap') }}"
                                 class="btn btn-light btn-air-light mx-2 " target="_blank">
                                 Print Rekap
                             </a>
@@ -40,6 +40,7 @@
                                         <th>Nama Pegawai</th>
                                         <th>Bulan & Tahun </th>
                                         <th>Total Gaji</th>
+                                        <th width="50px">Aksi</th>
 
                                     </tr>
                                 </thead>
@@ -63,6 +64,12 @@
     <script src="{{ asset('assets/js/datatables.min.js') }}"></script>
 
     <script>
+        function htmlDecode(data) {
+            var txt = document.createElement('textarea');
+            txt.innerHTML = data;
+            return txt.value
+        }
+
         $(document).ready(function() {
             $('#table').DataTable({
                 language: {
@@ -71,7 +78,7 @@
                 },
                 processing: true,
                 serverside: true,
-                ajax: "{{ route('admin.gaji-pegawai.getData') }}",
+                ajax: "{{ route('pimpinan.gaji-pegawai.getData') }}",
                 columns: [{
                         data: 'DT_RowIndex',
                         name: 'DT_RowIndex'
@@ -88,6 +95,12 @@
                         data: 'total_gaji',
                         name: 'total_gaji'
                     },
+                    {
+                        data: "aksi",
+                        render: function(data) {
+                            return htmlDecode(data);
+                        }
+                    }
                 ]
             });
 

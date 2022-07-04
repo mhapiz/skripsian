@@ -10,7 +10,7 @@
                 </div>
                 <div class="col-6">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item active"><a href="{{ route('admin.dashboard') }}">
+                        <li class="breadcrumb-item active"><a href="{{ route('pimpinan.dashboard') }}">
                                 <i data-feather="home"></i></a></li>
                         <li class="breadcrumb-item active">Ruangan </li>
                     </ol>
@@ -25,14 +25,14 @@
                         <h5>Tambah Data Ruangan</h5>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('admin.ruangan.store') }}" method="POST">
+                        <form action="{{ route('pimpinan.ruangan.store') }}" method="POST">
                             @csrf
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <div class="form-group">
                                         <label>Nama Ruangan</label>
-                                        <input class="form-control @error('nama_ruangan') is-invalid @enderror " type="text"
-                                            name="nama_ruangan" value="{{ old('nama_ruangan') }}"
+                                        <input class="form-control @error('nama_ruangan') is-invalid @enderror "
+                                            type="text" name="nama_ruangan" value="{{ old('nama_ruangan') }}"
                                             placeholder="Nama Ruangan">
                                         @error('nama_ruangan')
                                             <div class="invalid-feedback">

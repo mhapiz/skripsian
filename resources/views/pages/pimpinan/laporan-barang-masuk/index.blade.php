@@ -10,7 +10,7 @@
                 </div>
                 <div class="col-6">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item active"><a href="{{ route('admin.dashboard') }}">
+                        <li class="breadcrumb-item active"><a href="{{ route('pimpinan.dashboard') }}">
                                 <i data-feather="home"></i></a></li>
                         <li class="breadcrumb-item active">Laporan Barang Masuk </li>
                     </ol>
@@ -96,7 +96,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('admin.laporan-barang-masuk.printRekap') }}" method="POST" id="formPrint">
+                    <form action="{{ route('pimpinan.laporan-barang-masuk.printRekap') }}" method="POST" id="formPrint">
                         @csrf
                         <div class="form-group">
                             <label for="">Masukkan Tahun</label>
@@ -134,7 +134,7 @@
                     processing: true,
                     serverside: true,
                     ajax: {
-                        url: "{{ route('admin.laporan-barang-masuk.getData') }}",
+                        url: "{{ route('pimpinan.laporan-barang-masuk.getData') }}",
                         data: {
                             bulan: bulan,
                             tahun: tahun,

@@ -10,7 +10,7 @@
                 </div>
                 <div class="col-6">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item active"><a href="{{ route('admin.dashboard') }}">
+                        <li class="breadcrumb-item active"><a href="{{ route('pimpinan.dashboard') }}">
                                 <i data-feather="home"></i></a></li>
                         <li class="breadcrumb-item active">Pemeriksaan </li>
                     </ol>
@@ -29,9 +29,6 @@
                                 <i class="fa fa-print" aria-hidden="true"></i>
                                 <span> Rekap Pemeriksaan</span>
                             </button>
-                            <a href="{{ route('admin.pemeriksaan-barang.create') }}" class="btn btn-light btn-air-light">
-                                Tambah Data
-                            </a>
                         </div>
                     </div>
                     <div class="card-body">
@@ -43,6 +40,7 @@
                                         <th>Nomor</th>
                                         <th>Tanggal</th>
                                         <th>Pemeriksa</th>
+                                        <th width="50px">Aksi</th>
 
                                     </tr>
                                 </thead>
@@ -67,7 +65,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('admin.pemeriksaan-barang.printRekap') }}" method="POST" id="exportForm">
+                    <form action="{{ route('pimpinan.pemeriksaan-barang.printRekap') }}" method="POST" id="exportForm">
                         @csrf
                         <div class="row">
                             <div class="col-6">
@@ -125,7 +123,11 @@
             dateFormat: "Y-m-d",
         });
 
-
+        function htmlDecode(data) {
+            var txt = document.createElement('textarea');
+            txt.innerHTML = data;
+            return txt.value
+        }
 
         $(document).ready(function() {
 
@@ -136,7 +138,7 @@
                 },
                 processing: true,
                 serverside: true,
-                ajax: "{{ route('admin.pemeriksaan-barang.getData') }}",
+                ajax: "{{ route('pimpinan.pemeriksaan-barang.getData') }}",
                 columns: [{
                         data: 'DT_RowIndex',
                         name: 'DT_RowIndex'
@@ -153,7 +155,12 @@
                         data: 'pemeriksa',
                         name: 'pemeriksa'
                     },
-
+                    {
+                        data: "aksi",
+                        render: function(data) {
+                            return htmlDecode(data);
+                        }
+                    }
 
                 ]
             });

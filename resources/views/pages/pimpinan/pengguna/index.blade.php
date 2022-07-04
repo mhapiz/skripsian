@@ -10,7 +10,7 @@
                 </div>
                 <div class="col-6">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item active"><a href="{{ route('admin.dashboard') }}">
+                        <li class="breadcrumb-item active"><a href="{{ route('pimpinan.dashboard') }}">
                                 <i data-feather="home"></i></a></li>
                         <li class="breadcrumb-item active">Pengguna </li>
                     </ol>
@@ -26,7 +26,7 @@
 
                         <div class="d-flex">
 
-                            <a href="{{ route('admin.pengguna.create') }}" class="btn btn-light btn-air-light">
+                            <a href="{{ route('pimpinan.pengguna.create') }}" class="btn btn-light btn-air-light">
                                 Tambah Data
                             </a>
                         </div>
@@ -70,7 +70,7 @@
                 },
                 processing: true,
                 serverside: true,
-                ajax: "{{ route('admin.pengguna.getData') }}",
+                ajax: "{{ route('pimpinan.pengguna.getData') }}",
                 columns: [{
                         data: 'DT_RowIndex',
                         name: 'DT_RowIndex'

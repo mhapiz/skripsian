@@ -10,7 +10,7 @@
                 </div>
                 <div class="col-6">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item active"><a href="{{ route('admin.dashboard') }}">
+                        <li class="breadcrumb-item active"><a href="{{ route('pimpinan.dashboard') }}">
                                 <i data-feather="home"></i></a></li>
                         <li class="breadcrumb-item active">Mutasi Barang Inventaris </li>
                     </ol>
@@ -26,7 +26,7 @@
                     </div>
                     <div class="card-body">
 
-                        <form action="{{ route('admin.mutasi.update') }}" method="POST">
+                        <form action="{{ route('pimpinan.mutasi.update') }}" method="POST">
                             @csrf
 
                             <div class="row">
@@ -153,7 +153,7 @@
             $('#selectInventaris').select2().trigger('change');
 
             $.ajax({
-                url: "{{ route('admin.mutasi.qrValidation') }}",
+                url: "{{ route('pimpinan.mutasi.qrValidation') }}",
                 type: 'POST',
                 data: {
                     '_token': csrf_token,
@@ -230,7 +230,7 @@
                 var _token = $('input[name="_token"]').val();
                 // console.log(id);
                 $.ajax({
-                    url: "{{ route('admin.mutasi.getBarangInventaris') }}",
+                    url: "{{ route('pimpinan.mutasi.getBarangInventaris') }}",
                     method: "POST",
                     data: {
                         id: id,

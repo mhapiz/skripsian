@@ -10,7 +10,7 @@
                 </div>
                 <div class="col-6">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item active"><a href="{{ route('admin.dashboard') }}">
+                        <li class="breadcrumb-item active"><a href="{{ route('pimpinan.dashboard') }}">
                                 <i data-feather="home"></i></a></li>
                         <li class="breadcrumb-item active">Detail Ruangan </li>
                     </ol>
@@ -24,7 +24,7 @@
                     <div class="card-header d-flex justify-content-between">
                         <h5>Detail Ruangan</h5>
 
-                        <a href="{{ route('admin.ruangan.printDetail', $data->id_ruangan) }}"
+                        <a href="{{ route('pimpinan.ruangan.printDetail', $data->id_ruangan) }}"
                             class="btn btn-light btn-air-light" target="_blank">
                             <i class="fa fa-print" aria-hidden="true"></i>
                             <span>Detail Ruangan</span>

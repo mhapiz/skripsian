@@ -10,7 +10,7 @@
                 </div>
                 <div class="col-6">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item active"><a href="{{ route('admin.dashboard') }}">
+                        <li class="breadcrumb-item active"><a href="{{ route('pimpinan.dashboard') }}">
                                 <i data-feather="home"></i></a></li>
                         <li class="breadcrumb-item active">Detail Barang Inventaris </li>
                     </ol>
@@ -67,9 +67,6 @@
                                 </tr>
                             </table>
                         </div>
-                        <a href="{{ route('admin.inventaris.edit', $data->id_inventaris) }}" class="btn btn-warning mt-2">
-                            Edit
-                        </a>
                     </div>
                 </div>
             </div>

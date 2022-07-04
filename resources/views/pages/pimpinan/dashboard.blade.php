@@ -10,7 +10,7 @@
                 <div class="col-6">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">
-                            <a href="{{ route('admin.dashboard') }}">
+                            <a href="{{ route('pimpinan.dashboard') }}">
                                 <i data-feather="home"></i>
                             </a>
                         </li>
@@ -26,13 +26,13 @@
             <div class="col-md-4">
                 <div class="row">
                     <div class="col-12">
-                        <div class="card">
+                        {{-- <div class="card">
                             <div class="card-body">
                                 <h5>Mutasi Barang</h5>
-                                <span>Klik <a href="{{ route('admin.mutasi.index') }}">disini</a> untuk memutasi
+                                <span>Klik <a href="{{ route('pimpinan.mutasi.index') }}">disini</a> untuk memutasi
                                     barang</span>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
                     <div class="col-12">
                         <div class="card">

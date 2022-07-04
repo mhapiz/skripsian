@@ -182,8 +182,16 @@
                     <li class="sidebar-main-title">
                         <div>
                             <h6>Laporan </h6>
-                            <p>Inventaris dll</p>
+                            <p>...</p>
                         </div>
+                    </li>
+
+                    <li class="sidebar-list">
+                        <a class="sidebar-link sidebar-title link-nav {{ request()->is('pimpinan/pegawai*') ? 'active' : '' }}"
+                            href="{{ route('pimpinan.pegawai.index') }}">
+                            <i data-feather="hash"></i>
+                            <span>Pegawai</span>
+                        </a>
                     </li>
 
                     <li class="sidebar-list">
