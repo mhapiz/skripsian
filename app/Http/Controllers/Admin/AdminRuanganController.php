@@ -51,6 +51,7 @@ class AdminRuanganController extends Controller
     public function detail($id)
     {
         $data = Ruangan::with(['pegawai', 'inventaris'])->findOrFail($id);
+
         return view('pages.admin.ruangan.detail', [
             'data' => $data
         ]);

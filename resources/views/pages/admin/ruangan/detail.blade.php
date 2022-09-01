@@ -36,14 +36,17 @@
                                 <tr>
                                     <th width="250px">Nama Ruangan</th>
                                     <td>{{ $data->nama_ruangan }}</td>
+                                    <td rowspan="2" style="width: 200px">
+                                        {{ QrCode::size(200)->generate(route('inventaris-ruangan-detail', md5($data->id_ruangan))) }}
+                                    </td>
                                 </tr>
                                 <tr>
                                     <th width="250px">Penanggung Jawab Ruangan</th>
-                                    <td>{{ $data->pegawai->nama_pegawai }}</td>
+                                    <td colspan="2">{{ $data->pegawai->nama_pegawai }}</td>
                                 </tr>
                                 <tr>
                                     <th width="250px">Barang Inventaris</th>
-                                    <td>
+                                    <td colspan="2">
                                         <table class="table table-bordered">
                                             <thead>
                                                 <tr>

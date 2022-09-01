@@ -152,7 +152,7 @@
                         <a class="sidebar-link sidebar-title link-nav {{ request()->is('admin/laporan-barang-masuk*') ? 'active' : '' }}"
                             href="{{ route('admin.laporan-barang-masuk.index') }}">
                             <i data-feather="hash"></i>
-                            <span>Laporan Barang Masuk</span>
+                            <span>Laporan Keuangan</span>
                         </a>
                     </li>
 
@@ -246,7 +246,7 @@
                         <a class="sidebar-link sidebar-title link-nav {{ request()->is('pimpinan/laporan-barang-masuk*') ? 'active' : '' }}"
                             href="{{ route('pimpinan.laporan-barang-masuk.index') }}">
                             <i data-feather="hash"></i>
-                            <span>Laporan Barang Masuk</span>
+                            <span>Laporan Keuangan</span>
                         </a>
                     </li>
 

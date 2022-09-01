@@ -17,7 +17,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form id="">
+                    <form id="addBarangLive">
 
                         <div class="row">
                             <div class="col-md-4">
@@ -27,7 +27,7 @@
                                         <img src="{{ $foto_path->temporaryUrl() }}" width="100%" id="foto_path">
                                     @endif
                                     <div class="custom-file">
-                                        <input type="file"
+                                        <input type="file" form="addBarangLive"
                                             class="custom-file-input @error('foto_path') is-invalid @enderror"
                                             name="foto_path" wire:model="foto_path">
                                         <label class="custom-file-label">Pilih foto...</label>

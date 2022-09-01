@@ -12,7 +12,7 @@
         <table class="w-full">
             <tr>
                 <td>
-                    <h2 style="text-align: center">Rekap Barang Inventaris</h2>
+                    <h2 style="text-align: center">Rekap Pegawai</h2>
                 </td>
             </tr>
         </table>

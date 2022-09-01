@@ -38,7 +38,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>Tanggal</label>
-                                        <input type="date" name="tanggal" id="tanggal" class="form-control"
+                                        <input type="date" name="tanggal" id="tanggal" class="form-control" required
                                             form="formBarangMasuk">
                                     </div>
                                 </div>

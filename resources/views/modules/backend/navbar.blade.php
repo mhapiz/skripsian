@@ -44,8 +44,11 @@
                             src="https://source.boringavatars.com/beam/120/?square&colors=FAD089,FF9C5B,F5634A,ED303C,3B8183"
                             width="40px">
                         <div class="media-body">
-                            <span>Hapiz</span>
-                            <p class="mb-0 font-roboto">Admin
+                            <span>
+                                {{ Str::ucfirst(Auth::user()->role) }}
+                            </span>
+                            <p class="mb-0 font-roboto">
+                                {{ Str::ucfirst(Auth::user()->role) }}
                                 <i class="middle fa fa-angle-down"></i>
                             </p>
                         </div>

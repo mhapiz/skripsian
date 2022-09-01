@@ -42,6 +42,7 @@ Route::get('login', [AuthController::class, 'index'])->name('login.view');
 Route::post('login-proses', [AuthController::class, 'loginProses'])->name('login.proses');
 Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 
+Route::get('forbidden-access', [HomeController::class, 'forbidden'])->name('forbidden');
 
 Route::get('/', function () {
     return redirect()->route('login.view');
@@ -53,13 +54,14 @@ Route::post('autocomplete-barang', [AutoCompleteController::class, 'autocomplete
 Route::post('autocomplete-aset', [AutoCompleteController::class, 'autocompleteAset'])->name('autocompleteAset');
 
 Route::get('detail/{id}', [HomeController::class, 'inventarisDetail'])->name('inventaris-detail');
+Route::get('inventaris-ruangan/{id}', [HomeController::class, 'inventarisRuanganDetail'])->name('inventaris-ruangan-detail');
 
 Route::get('profil', [UserProfileController::class, 'index'])->name('my-profile');
 Route::put('profil/update/{id}', [UserProfileController::class, 'update'])->name('update.my-profile');
 
 
 Route::prefix('admin')
-    ->middleware('auth')
+    ->middleware(['auth', 'isAdmin'])
     ->namespace('admin')
     ->group(function () {
         Route::get('/', [AdminController::class, 'index'])->name('admin.dashboard');
@@ -118,7 +120,6 @@ Route::prefix('admin')
 
             Route::get('/detail/{id}', [AdminRuanganController::class, 'detail'])->name('admin.ruangan.detail');
             Route::get('/print-detail/{id}', [AdminRuanganController::class, 'printDetail'])->name('admin.ruangan.printDetail');
-
 
             Route::get('/edit/{id}', [AdminRuanganController::class, 'edit'])->name('admin.ruangan.edit');
             Route::put('/update/{id}', [AdminRuanganController::class, 'update'])->name('admin.ruangan.update');
@@ -299,7 +300,7 @@ Route::prefix('admin')
     });
 
 Route::prefix('pimpinan')
-    ->middleware('auth')
+    ->middleware(['auth', 'isSuperadmin'])
     ->group(function () {
         Route::get('/', [PimpinanController::class, 'index'])->name('pimpinan.dashboard');
 

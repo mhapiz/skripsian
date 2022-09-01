@@ -28,7 +28,7 @@ class AdminPegawaiController extends Controller
                 $editUrl = route('admin.pegawai.edit', $row->id_pegawai);
                 $deleteUrl = route('admin.pegawai.destroy', $row->id_pegawai);
 
-                return view('modules.backend._formActionsWithPrint', compact('editUrl', 'deleteUrl'));
+                return view('modules.backend._formActions', compact('editUrl', 'deleteUrl'));
             })
             ->editColumn('pangkat', function ($row) {
                 return $row->pangkat->nama_pangkat . '-' . $row->pangkat->golongan;
@@ -46,6 +46,7 @@ class AdminPegawaiController extends Controller
 
         return $pdf->stream();
     }
+
     public function create()
     {
         $pangkat = Pangkat::all();
