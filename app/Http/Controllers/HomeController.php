@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Inventaris;
+use App\Models\Pegawai;
 use App\Models\Ruangan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -12,9 +13,15 @@ class HomeController extends Controller
     public function inventarisDetail($id)
     {
         $data = Inventaris::where(DB::raw('md5(id_inventaris)'), $id)->with('ruangan')->first();
+        if ($data->ruangan) {
+            $pegawai = Pegawai::find($data->ruangan->pegawai_id);
+        } else{
+            $pegawai = null;
+        }
 
         return view('pages.frontend.invetaris-detail', [
-            'data' => $data
+            'data' => $data,
+            'pegawai' => $pegawai
         ]);
     }
 

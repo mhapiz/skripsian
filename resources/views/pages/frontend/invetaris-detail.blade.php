@@ -64,6 +64,16 @@
                             @endif
                         </td>
                     </tr>
+                    <tr>
+                        <th>Penanggung Jawab</i></th>
+                        <td>
+                            @if ($pegawai)
+                                {{ $pegawai->nama_pegawai }}
+                            @else
+                                -
+                            @endif
+                        </td>
+                    </tr>
                 </table>
             </div>
         </div>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\DetailSerahTerima;
 use App\Models\Inventaris;
+use App\Models\Pegawai;
 use App\Models\Ruangan;
 use App\Models\SerahTerima;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -94,10 +95,14 @@ class AdminInventarisController extends Controller
     public function detail($id)
     {
         $data = Inventaris::where(DB::raw('md5(id_inventaris)'), $id)->with('ruangan')->first();
-
-
+        if ($data->ruangan) {
+            $pegawai = Pegawai::find($data->ruangan->pegawai_id);
+        } else{
+            $pegawai = null;
+        }
         return view('pages.admin.inventaris.detail', [
-            'data' => $data
+            'data' => $data,
+            'pegawai' => $pegawai
         ]);
     }
 
