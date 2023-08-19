@@ -226,7 +226,7 @@ Route::prefix('admin')
         // Inventaris
         Route::prefix('inventaris')->group(function () {
             Route::get('/', [AdminInventarisController::class, 'index'])->name('admin.inventaris.index');
-            Route::get('get-data', [AdminInventarisController::class, 'getData'])->name('admin.inventaris.getData');
+            Route::get('get-data/{filter?}', [AdminInventarisController::class, 'getData'])->name('admin.inventaris.getData');
 
             Route::post('/print-rekap', [AdminInventarisController::class, 'printRekap'])->name('admin.inventaris.printRekap');
 

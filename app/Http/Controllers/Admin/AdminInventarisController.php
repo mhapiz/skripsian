@@ -30,16 +30,12 @@ class AdminInventarisController extends Controller
         ]);
     }
 
-    public function getData(Request $request)
+    public function getData(?string $filter)
     {
-        if (!empty($request->ruangan)) {
-            if ($request->ruangan == '-') {
-                $data = Inventaris::with(['barang', 'ruangan'])->where('ruangan_id', '=', null)->orderBy('ruangan_id', 'ASC')->latest();
-            } else {
-                $data = Inventaris::with(['barang', 'ruangan'])->where('ruangan_id', '=', $request->ruangan)->orderBy('ruangan_id', 'ASC')->latest();
-            }
+        if ($filter !== 'all') {
+            $data = Inventaris::with(['barang', 'ruangan', 'pegawai'])->where('kondisi', '=', $filter)->latest();
         } else {
-            $data = Inventaris::with(['barang', 'ruangan'])->orderBy('ruangan_id', 'ASC')->latest();
+            $data = Inventaris::with(['barang', 'ruangan', 'pegawai'])->latest();
         }
 
         return DataTables::eloquent($data)
@@ -53,11 +49,15 @@ class AdminInventarisController extends Controller
             ->editColumn('nama_barang', function ($row) {
                 return $row->barang->nama_barang;
             })
-            ->editColumn('ruangan', function ($row) {
-                if ($row->ruangan_id == null) {
-                    return 'Belum Ditempatkan';
+            ->editColumn('kepemilikan', function ($row) {
+                if ($row->jenis_kepemilikan !== null) {
+                    if ($row->jenis_kepemilikan == 'ruangan') {
+                        return $row->ruangan->nama_ruangan;
+                    } elseif ($row->jenis_kepemilikan == 'pegawai') {
+                        return $row->pegawai->nama_pegawai;
+                    }
                 } else {
-                    return $row->ruangan->nama_ruangan;
+                    return 'Bebas';
                 }
             })
             ->editColumn('kode', function ($row) {

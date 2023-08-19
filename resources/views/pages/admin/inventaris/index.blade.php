@@ -47,12 +47,19 @@
                             <div class="col-4">
                                 <div class="form-group">
                                     <select name="ruangan" id="ruangan" class="form-control">
-                                        <option value="">Semua</option>
-                                        <option value="-">Belum Ditempatkan</option>
-                                        @foreach ($ruangan as $r)
-                                            <option value="{{ $r->id_ruangan }}">
-                                                {{ $r->nama_ruangan }}</option>
-                                        @endforeach
+                                        <option value="all">Semua</option>
+                                        <option value="baik">
+                                            Baik
+                                        </option>
+                                        <option value="cukup_baik">
+                                            Cukup Baik
+                                        </option>
+                                        <option value="rusak">
+                                            Rusak
+                                        </option>
+                                        <option value="rusak_berat">
+                                            Rusak Berat
+                                        </option>
                                     </select>
                                 </div>
                             </div>
@@ -70,7 +77,7 @@
                                         <th>Nama Barang</th>
                                         <th>Kode Barang + No. Reg</th>
                                         <th>Kondisi</th>
-                                        <th>Ruangan</th>
+                                        <th>Kepemilikan</th>
                                         {{-- <th>QR Code</th> --}}
                                         <th width="50px">Aksi</th>
                                     </tr>
@@ -88,7 +95,7 @@
     <!-- Modal -->
     <div class="modal fade" id="distribusiBarangModal" tabindex="-1" aria-labelledby="distribusiBarangModalLabel"
         aria-hidden="true">
-        <div class="modal-dialog modal-lg">
+        <div class="modal-dialog modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="distribusiBarangModalLabel">Distribusi Barang Inventaris</h5>
@@ -353,9 +360,11 @@
     <script>
         $(document).ready(function() {
 
-            loadData();
+            loadData("all");
 
-            function loadData(ruangan = '') {
+            function loadData(ruangan) {
+                let url = "{{ route('admin.inventaris.getData', ['filter' => ':filter']) }}";
+                url = url.replace(':filter', ruangan);
                 $('#table').DataTable({
                     language: {
                         "url": "//cdn.datatables.net/plug-ins/1.10.21/i18n/Indonesian.json",
@@ -364,10 +373,7 @@
                     processing: true,
                     serverside: true,
                     ajax: {
-                        url: "{{ route('admin.inventaris.getData') }}",
-                        data: {
-                            ruangan: ruangan,
-                        }
+                        url: url
                     },
                     columns: [{
                             data: 'DT_RowIndex',
@@ -386,8 +392,8 @@
                             name: 'kondisi'
                         },
                         {
-                            data: 'ruangan',
-                            name: 'ruangan'
+                            data: 'kepemilikan',
+                            name: 'kepemilikan'
                         },
                         // {
                         //     data: 'qr',
