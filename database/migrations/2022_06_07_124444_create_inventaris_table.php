@@ -19,8 +19,9 @@ return new class extends Migration
             $table->integer('register');
             $table->string('kondisi');
             $table->string('tahun_masuk');
-            // $table->string('keterangan');
+            $table->string('jenis_kepemilikan')->nullable();
             $table->unsignedInteger('ruangan_id')->nullable();
+            $table->unsignedInteger('pegawai_id')->nullable();
             $table->timestamps();
         });
     }

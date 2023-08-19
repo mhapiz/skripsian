@@ -16,6 +16,8 @@ class Inventaris extends Model
         'kondisi',
         'ruangan_id',
         'tahun_masuk',
+        'jenis_kepemilikan',
+        'pegawai_id'
     ];
 
     public function barang()

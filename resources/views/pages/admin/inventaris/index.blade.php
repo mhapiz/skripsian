@@ -32,10 +32,14 @@
 
                             </button>
                             <!-- Button trigger modal -->
-                            <button type="button" class="btn btn-light btn-air-light" data-toggle="modal"
+                            <button type="button" class="btn btn-light btn-air-light mx-2" data-toggle="modal"
                                 data-target="#distribusiBarangModal">
                                 Serah Terima
                             </button>
+
+                            <a href="{{ route('admin.inventaris.create') }}" class="btn btn-light btn-air-light">
+                                Tambah Barang
+                            </a>
                         </div>
                     </div>
                     <div class="card-body">
@@ -118,6 +122,18 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
+                                    <label for="">Jenis Kepemilikan</label>
+                                    <select name="jenis_kepemilikan" id="jenisKepemilikan"
+                                        class="form-control select2js @error('jenis_kepemilikan') is-invalid @enderror"
+                                        form="distribusiForm">
+                                        <option value="null">Pilih ...</option>
+                                        <option value="ruangan">Ruangan</option>
+                                        <option value="pegawai">Pegawai</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group" id="optionRuangan">
                                     <label for="">Ruangan</label>
                                     <select name="ruangan_id" id=""
                                         class="form-control select2js @error('ruangan_id') is-invalid @enderror"
@@ -126,6 +142,18 @@
                                         @foreach ($ruangan as $r)
                                             <option value="{{ $r->id_ruangan }}">
                                                 {{ $r->nama_ruangan }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group" id="optionPegawai">
+                                    <label for="">Pegawai</label>
+                                    <select name="pegawai_id" id=""
+                                        class="form-control select2js @error('pegawai_id') is-invalid @enderror"
+                                        form="distribusiForm">
+                                        <option></option>
+                                        @foreach ($pegawai as $r)
+                                            <option value="{{ $r->id_pegawai }}">
+                                                {{ $r->nama_pegawai }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -385,6 +413,26 @@
                     $('#table').DataTable().destroy();
                     loadData();
                 }
+            });
+
+            $('#optionRuangan').css('display', 'none')
+            $('#optionPegawai').css('display', 'none')
+
+            $('#jenisKepemilikan').change(function() {
+
+                //get the selected val using jQuery's 'this' method and assign to a var
+                var selectedVal = $(this).val();
+
+                if (selectedVal == 'ruangan') {
+                    $('#optionRuangan').css('display', 'block')
+                    $('#optionPegawai').css('display', 'none')
+                } else if (selectedVal == 'pegawai') {
+                    $('#optionRuangan').css('display', 'none')
+                    $('#optionPegawai').css('display', 'block')
+                }
+                console.log(selectedVal);
+                //perform the rest of your operations using aforementioned var
+
             });
 
 

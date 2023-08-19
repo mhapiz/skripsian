@@ -230,6 +230,9 @@ Route::prefix('admin')
 
             Route::post('/print-rekap', [AdminInventarisController::class, 'printRekap'])->name('admin.inventaris.printRekap');
 
+            Route::get('/create', [AdminInventarisController::class, 'create'])->name('admin.inventaris.create');
+            Route::post('/store', [AdminInventarisController::class, 'store'])->name('admin.inventaris.store');
+
             Route::get('detail/{id}', [AdminInventarisController::class, 'detail'])->name('admin.inventaris.detail');
 
             Route::get('/edit/{id}', [AdminInventarisController::class, 'edit'])->name('admin.inventaris.edit');
