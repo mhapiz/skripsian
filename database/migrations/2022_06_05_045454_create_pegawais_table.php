@@ -18,7 +18,6 @@ return new class extends Migration
             $table->string('nama_pegawai');
             $table->string('nip');
             $table->string('jabatan');
-            $table->unsignedInteger('pangkat_id');
             $table->text('alamat');
             $table->string('no_hp');
             $table->timestamps();

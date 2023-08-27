@@ -64,7 +64,7 @@
                                         {{-- <p class="font-roboto">Total Pengeluaran Tahun ini</p> --}}
                                     </div>
                                     <div class="col-xl-12 p-0 left_side_earning">
-                                        <h5>Rp. {{ number_format($pengeluaranTahunIni->total, 0, ',', '.') }} </h5>
+                                        <h5>Rp. {{ number_format($pengeluaranTahunIni->total ?? 0, 0, ',', '.') }} </h5>
                                         <p class="font-roboto">Pengeluaran Tahun Ini</p>
                                     </div>
                                 </div>
@@ -90,7 +90,7 @@
     </div>
 @endsection
 
-@push('tambahStyle')
+{{-- @push('tambahStyle')
 @endpush
 
 @push('tambahScript')
@@ -126,4 +126,4 @@
             }
         });
     </script>
-@endpush
+@endpush --}}

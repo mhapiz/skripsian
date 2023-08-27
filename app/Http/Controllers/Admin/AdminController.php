@@ -16,19 +16,19 @@ class AdminController extends Controller
     public function index()
     {
         $tahunIni = Carbon::now()->year;
-        $bm = BarangMasuk::selectRaw('year(tanggal) as year, month(tanggal) as month, sum(total_harga) as total_belanja')
-            ->groupBy('year', 'month')
-            ->whereYear('tanggal', '=', $tahunIni)
-            ->orderByRaw('min(created_at) asc')->get();
-        $pengeluaranTahunIni = BarangMasuk::selectRaw('sum(total_harga) as total')
-            ->whereYear('tanggal', '=', $tahunIni)->first();
-        $inven = Inventaris::get()->count();
-        $aset = Aset::get()->count();
+        // $bm = BarangMasuk::selectRaw('year(tanggal) as year, month(tanggal) as month, sum(total_harga) as total_belanja')
+        //     ->groupBy('year', 'month')
+        //     ->whereYear('tanggal', '=', $tahunIni)
+        //     ->orderByRaw('min(created_at) asc')->get();
+        // $pengeluaranTahunIni = BarangMasuk::selectRaw('sum(total_harga) as total')
+        //     ->whereYear('tanggal', '=', $tahunIni)->first();
+        // $inven = Inventaris::get()->count();
+        // $aset = Aset::get()->count();
         return view('pages.admin.dashboard', [
-            'bm' => $bm,
-            'inven' => $inven,
-            'aset' => $aset,
-            'pengeluaranTahunIni' => $pengeluaranTahunIni,
+            'bm' => $bm ?? null,
+            'inven' => $inven ?? null,
+            'aset' => $aset ?? null,
+            'pengeluaranTahunIni' => $pengeluaranTahunIni ?? null,
 
         ]);
     }

@@ -44,7 +44,7 @@
                                         <th>No.</th>
                                         <th>Nama Pegawai</th>
                                         <th>NIP</th>
-                                        <th>Pangkat - Golongan</th>
+                                        <th>Jabatan</th>
                                         <th width="50px">Aksi</th>
                                     </tr>
                                 </thead>
@@ -97,8 +97,8 @@
                         name: 'nip'
                     },
                     {
-                        data: 'pangkat',
-                        name: 'pangkat'
+                        data: 'jabatan',
+                        name: 'jabatan'
                     },
                     {
                         data: "aksi",

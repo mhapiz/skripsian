@@ -60,12 +60,6 @@ class AdminInventarisController extends Controller
                     return 'Bebas';
                 }
             })
-            ->editColumn('kode', function ($row) {
-                return $row->barang->kode_barang . ' - ' . $row->register;
-            })
-            // ->editColumn('qr', function ($row) {
-            //     return QrCode::size(150)->generate(route('inventaris-detail', md5($row->id_inventaris)));
-            // })
             ->editColumn('kondisi', function ($row) {
                 if ($row->kondisi == 'baik') {
                     return '<div class="badge badge-pill badge-success">Baik</div>';
@@ -77,6 +71,13 @@ class AdminInventarisController extends Controller
                     return '<div class="badge badge-pill badge-danger">Rusak Berat</div>';
                 }
             })
+            ->editColumn('kode', function ($row) {
+                return $row->barang->kode_barang . ' - ' . $row->register;
+            })
+            // ->editColumn('qr', function ($row) {
+            //     return QrCode::size(150)->generate(route('inventaris-detail', md5($row->id_inventaris)));
+            // })
+
             ->rawColumns(['aksi', 'kondisi'])
             ->make(true);
     }
@@ -200,6 +201,7 @@ class AdminInventarisController extends Controller
         $req['barang_id'] = $allReq['barang_id'];
         $req['jumlah_tersedia'] = $allReq['jumlah_tersedia'];
         $req['jumlah_distribusi'] = $allReq['jumlah_distribusi'];
+        $req['kondisi'] = $allReq['kondisi'];
 
         if ($req['jenis_kepemilikan'] == 'ruangan') {
             $request->validate([
@@ -219,7 +221,6 @@ class AdminInventarisController extends Controller
                 return redirect()->back();
             }
         }
-
         // $st = SerahTerima::create([
         //     'no_serah_terima' => $req['no_serah_terima'],
         //     'tanggal_serah_terima' => $req['tanggal_serah_terima'],
@@ -229,8 +230,19 @@ class AdminInventarisController extends Controller
         foreach ($request->barang_id as $key => $value) {
 
             $barangFree = Inventaris::where([
-                ['barang_id', $req['barang_id'][$key]], ['ruangan_id', null], ['pegawai_id', null]
+                ['barang_id', $req['barang_id'][$key]],
+                ['ruangan_id', null],
+                ['pegawai_id', null],
+                ['kondisi', $req['kondisi'][$key]]
             ])->orderBy('register', 'ASC')->get();
+
+            if ($barangFree == null) {
+                $barangFree = Inventaris::where([
+                    ['barang_id', $req['barang_id'][$key]],
+                    ['ruangan_id', null],
+                    ['pegawai_id', null]
+                ])->orderBy('register', 'ASC')->get();
+            }
 
             for ($i = 1; $i <= $req['jumlah_distribusi'][$key]; $i++) {
                 if ($req['jenis_kepemilikan'] == 'ruangan') {

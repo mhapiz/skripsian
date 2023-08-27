@@ -108,7 +108,7 @@
                         @csrf
 
                         <div class="row">
-                            <div class="col-md-6">
+                            {{-- <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="">Nomor</label>
                                     <input type="text" name="no_serah_terima" id=""
@@ -118,7 +118,7 @@
                                             ? str_pad(App\Models\SerahTerima::orderBy('created_at', 'desc')->first()->no_serah_terima + 1, 3, '0', STR_PAD_LEFT)
                                             : str_pad('1', 3, '0', STR_PAD_LEFT) }}">
                                 </div>
-                            </div>
+                            </div> --}}
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="">Tanggal</label>

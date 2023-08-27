@@ -31,7 +31,11 @@ class AdminRuanganController extends Controller
                 return view('modules.backend._formActionsWithDetail', compact('editUrl', 'deleteUrl', 'detailUrl'));
             })
             ->editColumn('pegawai', function ($row) {
-                return $row->pegawai->nama_pegawai;
+                if ($row->pegawai) {
+                    return $row->pegawai->nama_pegawai;
+                } else {
+                    return '-';
+                }
             })
             ->rawColumns(['aksi'])
             ->make(true);
@@ -69,7 +73,7 @@ class AdminRuanganController extends Controller
     {
         $req =   $request->validate([
             'nama_ruangan' => 'required',
-            'pegawai_id' => 'required',
+            'pegawai_id' => 'nullable',
         ]);
 
         Ruangan::create($req);
@@ -92,7 +96,7 @@ class AdminRuanganController extends Controller
     {
         $req =   $request->validate([
             'nama_ruangan' => 'required',
-            'pegawai_id' => 'required',
+            'pegawai_id' => 'nullable',
         ]);
 
         Ruangan::findOrFail($id)->update($req);

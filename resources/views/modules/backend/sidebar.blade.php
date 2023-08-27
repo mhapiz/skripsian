@@ -54,34 +54,10 @@
                 </li>
 
                 <li class="sidebar-list">
-                    <a class="sidebar-link sidebar-title link-nav {{ request()->is('admin/pangkat*') ? 'active' : '' }}"
-                        href="{{ route('admin.pangkat.index') }}">
-                        <i data-feather="hash"></i>
-                        <span>Pangkat</span>
-                    </a>
-                </li>
-
-                <li class="sidebar-list">
                     <a class="sidebar-link sidebar-title link-nav {{ request()->is('admin/ruangan*') ? 'active' : '' }}"
                         href="{{ route('admin.ruangan.index') }}">
                         <i data-feather="hash"></i>
                         <span>Ruangan</span>
-                    </a>
-                </li>
-
-                <li class="sidebar-list">
-                    <a class="sidebar-link sidebar-title link-nav {{ request()->is('admin/suplier*') ? 'active' : '' }}"
-                        href="{{ route('admin.suplier.index') }}">
-                        <i data-feather="hash"></i>
-                        <span>Suplier</span>
-                    </a>
-                </li>
-
-                <li class="sidebar-list">
-                    <a class="sidebar-link sidebar-title link-nav {{ request()->is('admin/barang') || request()->is('admin/barang/create') || request()->is('admin/barang/edit*') ? 'active' : '' }}"
-                        href="{{ route('admin.barang.index') }}">
-                        <i data-feather="hash"></i>
-                        <span>Barang</span>
                     </a>
                 </li>
 
@@ -100,14 +76,6 @@
                     </div>
                 </li>
 
-
-                <li class="sidebar-list">
-                    <a class="sidebar-link sidebar-title link-nav {{ request()->is('admin/inventaris*') ? 'active' : '' }}"
-                        href="{{ route('admin.inventaris.index') }}">
-                        <i data-feather="hash"></i>
-                        <span>Inventaris</span>
-                    </a>
-                </li>
 
                 <li class="sidebar-list">
                     <a class="sidebar-link sidebar-title link-nav {{ request()->is('admin/inventaris-ruangan*') ? 'active' : '' }}"
@@ -158,14 +126,7 @@
                         <span>Laporan Keuangan</span>
                     </a>
                 </li>
-
-                <li class="sidebar-list">
-                    <a class="sidebar-link sidebar-title link-nav {{ request()->is('admin/aset-masuk*') ? 'active' : '' }}"
-                        href="{{ route('admin.aset-masuk.index') }}">
-                        <i data-feather="hash"></i>
-                        <span>Aset Masuk</span>
-                    </a>
-                </li> --}}
+                --}}
                 @elseif (Auth::user()->role == 'pimpinan')
                 <li class="sidebar-main-title pt-0">
                     <div>

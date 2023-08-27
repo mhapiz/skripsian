@@ -25,14 +25,53 @@
                         <h5>Tabel Data Aset</h5>
 
                         <div class="d-flex">
-                            <a href="{{ route('admin.aset.printRekap') }}" class="btn btn-light btn-air-light mr-2"
-                                target="_blank">
+                            <button type="button" class="btn btn-light btn-air-light" data-toggle="modal"
+                                data-target="#exampleModal">
                                 <i class="fa fa-print" aria-hidden="true"></i>
                                 <span>Rekap Aset</span>
+
+                            </button>
+
+                            <a href="{{ route('admin.mutasi.distribusi') }}" class="btn btn-light btn-air-light mx-2">
+                                Mutasi
+                            </a>
+
+                            <a href="{{ route('admin.aset.create') }}" class="btn btn-light btn-air-light">
+                                Tambah Aset
+                            </a>
+
+                            <a href="{{ route('admin.kendaraan-dinas.create') }}" class="btn btn-light btn-air-light ml-2">
+                                Tambah Kendaraan Dinas
                             </a>
                         </div>
                     </div>
                     <div class="card-body">
+                        <div class="row justify-content-end  ">
+                            <div class="col-4">
+                                <div class="form-group">
+                                    <select name="ruangan" id="ruangan" class="form-control">
+                                        <option value="all">Semua</option>
+                                        <option value="baik">
+                                            Baik
+                                        </option>
+                                        <option value="cukup_baik">
+                                            Cukup Baik
+                                        </option>
+                                        <option value="rusak">
+                                            Rusak
+                                        </option>
+                                        <option value="rusak_berat">
+                                            Rusak Berat
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <a href="javascript:void()" id="filterBtn" class="btn btn-light btn-air-light btn-block">
+                                    Filter
+                                </a>
+                            </div>
+                        </div>
                         <div class="table-responsive">
                             <table class="display table table-bordered" id="table">
                                 <thead>
@@ -41,7 +80,8 @@
                                         <th>Nama Aset</th>
                                         <th>Kode Aset + No. Reg</th>
                                         <th>Kondisi</th>
-                                        <th>Keterangan</th>
+                                        <th>Kepemilikan</th>
+                                        {{-- <th>QR Code</th> --}}
                                         <th width="50px">Aksi</th>
                                     </tr>
                                 </thead>
@@ -55,19 +95,23 @@
         </div>
     </div>
 
+
 @endsection
 
 @push('tambahStyle')
     <link rel="stylesheet" href="{{ asset('assets/css/datatables.min.css') }}">
-
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@ttskch/select2-bootstrap4-theme@x.x.x/dist/select2-bootstrap4.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 @endpush
 
 @push('tambahScript')
     <script src="{{ asset('assets/js/datatables.min.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script src="https://npmcdn.com/flatpickr/dist/l10n/id.js"></script>
+
     <script>
         flatpickr.localize(flatpickr.l10ns.id);
         $('#tanggal').flatpickr({
@@ -82,109 +126,68 @@
             txt.innerHTML = data;
             return txt.value
         }
-
+    </script>
+    <script>
         $(document).ready(function() {
-            $('#table').DataTable({
-                language: {
-                    "url": "//cdn.datatables.net/plug-ins/1.10.21/i18n/Indonesian.json",
-                    "sEmptyTable": "Tidads"
-                },
-                processing: true,
-                serverside: true,
-                ajax: "{{ route('admin.aset.getData') }}",
-                columns: [{
-                        data: 'DT_RowIndex',
-                        name: 'DT_RowIndex'
+
+            loadData("all");
+
+            function loadData(ruangan) {
+                let url = "{{ route('admin.aset.getData', ['filter' => ':filter']) }}";
+                url = url.replace(':filter', ruangan);
+                $('#table').DataTable({
+                    language: {
+                        "url": "//cdn.datatables.net/plug-ins/1.10.21/i18n/Indonesian.json",
+                        "sEmptyTable": "Tidads"
                     },
-                    {
-                        data: 'nama_aset',
-                        name: 'nama_aset'
+                    processing: true,
+                    serverside: true,
+                    ajax: {
+                        url: url
                     },
-                    {
-                        data: 'kode',
-                        name: 'kode'
-                    },
-                    {
-                        data: 'kondisi',
-                        name: 'kondisi'
-                    },
-                    {
-                        data: 'keterangan',
-                        name: 'keterangan'
-                    },
-                    {
-                        data: "aksi",
-                        render: function(data) {
-                            return htmlDecode(data);
+                    columns: [{
+                            data: 'DT_RowIndex',
+                            name: 'DT_RowIndex'
+                        },
+                        {
+                            data: 'nama',
+                            name: 'nama'
+                        },
+                        {
+                            data: 'kode',
+                            name: 'kode'
+                        },
+                        {
+                            data: 'kondisi',
+                            name: 'kondisi'
+                        },
+                        {
+                            data: 'kepemilikan',
+                            name: 'kepemilikan'
+                        },
+                        // {
+                        //     data: 'qr',
+                        //     name: 'qr'
+                        // },
+                        {
+                            data: "aksi",
+                            render: function(data) {
+                                return htmlDecode(data);
+                            }
                         }
-                    }
 
-                ]
-            });
-            // ----
+                    ]
+                });
+            }
 
-            var max_fields = 10;
-            var wrapper = $("#wrapper");
-            var add_button = $("#btnTambah");
-            var delete_button = $("#btnHapus");
-            var component2 = $('.comp2');
-            var component3 = $('.comp3');
-            var component4 = $('.comp4');
-            var component5 = $('.comp5');
-
-            component2.remove();
-            component3.remove();
-            component4.remove();
-            component5.remove();
-
-            var x = 2; //initlal text box count
-            $(add_button).click(function(e) { //on add input button click
-                e.preventDefault();
-                switch (x) {
-                    case 2:
-                        $(wrapper).append(component2);
-                        break;
-                    case 3:
-                        $(wrapper).append(component3);
-                        break;
-                    case 4:
-                        $(wrapper).append(component4);
-                        break;
-                    case 5:
-                        $(wrapper).append(component5);
-                        break;
-                    default:
-                        break;
-                }
-                // if (x < max_fields) { //max input box allowed
-                // }
-                x++; //text box increment
-                if (x >= 6) {
-                    x = 6
-                }
-            });
-
-            $(delete_button).click(function(e) { //user click on remove text
-                e.preventDefault();
-                switch (x) {
-                    case 3:
-                        component2.remove();
-                        break;
-                    case 4:
-                        component3.remove();
-                        break;
-                    case 5:
-                        component4.remove();
-                        break;
-                    case 6:
-                        component5.remove();
-                        break;
-                    default:
-                        break;
-                }
-                x--;
-                if (x <= 2) {
-                    x = 2
+            $('#filterBtn').click(function() {
+                var ruangan = $('#ruangan').val();
+                if (ruangan != '') {
+                    $('#table').DataTable().destroy();
+                    loadData(ruangan);
+                } else {
+                    $('#table').DataTable().destroy();
+                    loadData();
                 }
             });
 

@@ -69,25 +69,6 @@
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <div class="form-group">
-                                        <label>Pangkat</label>
-                                        <select name="pangkat_id" id="select2"
-                                            class="form-control @error('pangkat_id') is-invalid @enderror ">
-                                            <option></option>
-                                            @foreach ($pangkat as $p)
-                                                <option value="{{ $p->id_pangkat }}"
-                                                    {{ $p->id_pangkat == $data->pangkat_id ? 'selected' : '' }}>
-                                                    {{ $p->nama_pangkat }} ({{ $p->golongan }})</option>
-                                            @endforeach
-                                        </select>
-                                        @error('pangkat_id')
-                                            <div class="invalid-feedback">
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <div class="form-group">
                                         <label>No. HP</label>
                                         <input class="form-control @error('no_hp') is-invalid @enderror " type="text"
                                             name="no_hp" placeholder="No. HP" value="{{ $data->no_hp }}">

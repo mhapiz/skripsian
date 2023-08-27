@@ -14,7 +14,6 @@ class AdminPegawaiController extends Controller
 {
     public function index()
     {
-
         return view('pages.admin.pegawai.index');
     }
 
@@ -29,9 +28,6 @@ class AdminPegawaiController extends Controller
                 $deleteUrl = route('admin.pegawai.destroy', $row->id_pegawai);
 
                 return view('modules.backend._formActions', compact('editUrl', 'deleteUrl'));
-            })
-            ->editColumn('pangkat', function ($row) {
-                return $row->pangkat->nama_pangkat . '-' . $row->pangkat->golongan;
             })
             ->rawColumns(['aksi'])
             ->make(true);
@@ -49,9 +45,7 @@ class AdminPegawaiController extends Controller
 
     public function create()
     {
-        $pangkat = Pangkat::all();
         return view('pages.admin.pegawai.create', [
-            'pangkat' => $pangkat
         ]);
     }
 
@@ -61,9 +55,8 @@ class AdminPegawaiController extends Controller
             'nama_pegawai' => 'required',
             'nip' => 'required',
             'jabatan' => 'required',
-            'pangkat_id' => 'required',
             'no_hp' => 'required',
-            'alamat' => 'required',
+            'alamat' => 'required'
         ]);
 
         Pegawai::create($req);
@@ -74,11 +67,9 @@ class AdminPegawaiController extends Controller
 
     public function edit($id)
     {
-        $pangkat = Pangkat::all();
         $data = Pegawai::findOrFail($id);
         return view('pages.admin.pegawai.edit', [
-            'data' => $data,
-            'pangkat' => $pangkat,
+            'data' => $data
         ]);
     }
 
@@ -88,7 +79,6 @@ class AdminPegawaiController extends Controller
             'nama_pegawai' => 'required',
             'nip' => 'required',
             'jabatan' => 'required',
-            'pangkat_id' => 'required',
             'no_hp' => 'required',
             'alamat' => 'required',
         ]);

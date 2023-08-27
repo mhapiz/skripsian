@@ -6,30 +6,30 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
-    public function up()
-    {
-        Schema::create('tb_suplier', function (Blueprint $table) {
-            $table->id('id_suplier');
-            $table->string('nama_suplier');
-            $table->string('kota');
-            $table->string('alamat');
-            $table->string('no_telp');
-            $table->timestamps();
-        });
-    }
+    // /**
+    //  * Run the migrations.
+    //  *
+    //  * @return void
+    //  */
+    // public function up()
+    // {
+    //     Schema::create('tb_suplier', function (Blueprint $table) {
+    //         $table->id('id_suplier');
+    //         $table->string('nama_suplier');
+    //         $table->string('kota');
+    //         $table->string('alamat');
+    //         $table->string('no_telp');
+    //         $table->timestamps();
+    //     });
+    // }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::dropIfExists('tb_suplier');
-    }
+    // /**
+    //  * Reverse the migrations.
+    //  *
+    //  * @return void
+    //  */
+    // public function down()
+    // {
+    //     Schema::dropIfExists('tb_suplier');
+    // }
 };

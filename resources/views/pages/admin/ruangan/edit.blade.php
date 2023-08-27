@@ -33,8 +33,8 @@
                                 <div class="col-md-6 mb-3">
                                     <div class="form-group">
                                         <label>Nama Ruangan</label>
-                                        <input class="form-control @error('nama_ruangan') is-invalid @enderror " type="text"
-                                            name="nama_ruangan" value="{{ $data->nama_ruangan }}"
+                                        <input class="form-control @error('nama_ruangan') is-invalid @enderror "
+                                            type="text" name="nama_ruangan" value="{{ $data->nama_ruangan }}"
                                             placeholder="Nama Ruangan">
                                         @error('nama_ruangan')
                                             <div class="invalid-feedback">
@@ -48,6 +48,7 @@
                                         <label>Penggung Jawab Ruangan</label>
                                         <select class="col-12 @error('pegawai_id') is-invalid @enderror " id="select2"
                                             name="pegawai_id">
+                                            <option></option>
                                             @foreach ($pegawai as $p)
                                                 <option value="{{ $p->id_pegawai }}"
                                                     {{ $data->pegawai_id == $p->id_pegawai ? 'selected' : '' }}>
