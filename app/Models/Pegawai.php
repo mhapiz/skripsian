@@ -14,7 +14,6 @@ class Pegawai extends Model
         'nama_pegawai',
         'nip',
         'jabatan',
-        'pangkat_id',
         'no_hp',
         'alamat',
     ];

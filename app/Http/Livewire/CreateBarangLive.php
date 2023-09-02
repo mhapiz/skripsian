@@ -26,15 +26,19 @@ class CreateBarangLive extends Component
             'nama_barang' => 'required',
             'kode_barang' => 'required',
             'merk' => 'required',
-            'foto_path' => 'required|image|mimes:png,jpg,jpeg',
+            'foto_path' => 'image|mimes:png,jpg,jpeg|nullable',
         ]);
 
-        $extension = $this->foto_path->extension();
-        $nama_foto = Str::slug($req['nama_barang']) . '-' . Str::slug($req['kode_barang']) . '-' . time() . '.' . $extension;
+        if ($this->foto_path) {
+            $extension = $this->foto_path->extension();
+            $nama_foto = Str::slug($req['nama_barang']) . '-' . Str::slug($req['kode_barang']) . '-' . time() . '.' . $extension;
 
-        $this->foto_path->storeAs('public/barang', $nama_foto);
+            $this->foto_path->storeAs('public/barang', $nama_foto);
 
-        $req['foto_path'] = $nama_foto;
+            $req['foto_path'] = $nama_foto;
+        } else {
+            $req['foto_path'] = 'default.jpg';
+        }
 
         Barang::create($req);
 

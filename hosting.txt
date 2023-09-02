@@ -1,0 +1,3 @@
+nama db = inventa6_db
+username = inventa6_user
+password = j8u4Ddq76b5-

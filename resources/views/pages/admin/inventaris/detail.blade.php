@@ -65,6 +65,16 @@
                                         @endif
                                     </td>
                                 </tr>
+                                <tr>
+                                    <th>Penanggung Jawab</i></th>
+                                    <td>
+                                        @if ($pegawai)
+                                            {{ $pegawai->nama_pegawai }}
+                                        @else
+                                            -
+                                        @endif
+                                    </td>
+                                </tr>
                             </table>
                         </div>
                         <a href="{{ route('admin.inventaris.edit', $data->id_inventaris) }}" class="btn btn-warning mt-2">

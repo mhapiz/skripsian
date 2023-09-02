@@ -160,9 +160,9 @@ class AdminBarangMasukController extends Controller
 
     public function store(Request $request)
     {
+        // dd($request->all());
         $req = $this->validate($request, [
-            'tanggal' => 'required',
-            'suplier_id' => 'required',
+            // 'tanggal' => 'required',
             //---
             'nama_barang' => 'required',
             'kode_barang' => 'required',
@@ -170,28 +170,33 @@ class AdminBarangMasukController extends Controller
             'harga_satuan' => 'required',
         ]);
 
-        $bm = BarangMasuk::create([
-            'tanggal' => $req['tanggal'],
-            'suplier_id' => $req['suplier_id'],
-        ]);
-
-        $total_harga = 0;
+        $tahun_masuk = Carbon::now()->format('Y');
         foreach ($request->kode_barang as $key => $value) {
-            DetailBarangMasuk::create([
-                'barang_masuk_id' => $bm->id_barang_masuk,
-                'barang_id' => Barang::where([
-                    ['kode_barang', $req['kode_barang'][$key]],
-                    ['nama_barang', $req['nama_barang'][$key]]
-                ])->first()->id_barang,
-                'jumlah_masuk' => $req['jumlah_masuk'][$key],
-                'harga_satuan' => $req['harga_satuan'][$key],
-            ]);
-            $total_harga = $total_harga + ($req['jumlah_masuk'][$key] * $req['harga_satuan'][$key]);
-        }
+            $barang = Barang::where([
+                ['kode_barang', $req['kode_barang'][$key]],
+                ['nama_barang', $req['nama_barang'][$key]]
+            ])->first();
+            $jumlah_masuk = (int)$req['jumlah_masuk'][$key];
+            for ($i = 1; $i <= $jumlah_masuk; $i++) {
 
-        $bm->update([
-            'total_harga' => $total_harga
-        ]);
+                if ($lastData = Inventaris::join('tb_barang', 'tb_barang.id_barang', '=', 'tb_inventaris.barang_id')
+                    ->where([
+                        ['tb_barang.kode_barang', '=', $barang->kode_barang]
+                    ])->orderBy('id_inventaris', 'DESC')->first()
+                ) {
+                    $no_register = $lastData->register + 1;
+                } else {
+                    $no_register = $i;
+                }
+
+                Inventaris::create([
+                    'barang_id' => $barang->id_barang,
+                    'register' => $no_register,
+                    'kondisi' => 'baik',
+                    'tahun_masuk' => $tahun_masuk,
+                ]);
+            }
+        }
 
         Alert::success('Berhasil', 'Data Berhasil Ditambahkan');
         return redirect()->route('admin.barang-masuk.index');

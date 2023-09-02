@@ -18,7 +18,7 @@ class AdminInventarisRuanganController extends Controller
 
     public function getData()
     {
-        $data = Ruangan::with(['pegawai', 'inventaris'])->latest();
+        $data = Ruangan::with(['pegawai', 'aset'])->latest();
 
         return DataTables::eloquent($data)
             ->addIndexColumn()
@@ -28,10 +28,10 @@ class AdminInventarisRuanganController extends Controller
                 return view('modules.backend._formActionDetail', compact('detailUrl'));
             })
             ->editColumn('pegawai', function ($row) {
-                return $row->pegawai->nama_pegawai;
+                return $row->pegawai ? $row->pegawai->nama_pegawai : '-';
             })
-            ->editColumn('jumlah_barang_inventaris', function ($row) {
-                return $row->inventaris->count();
+            ->editColumn('jumlah_aset', function ($row) {
+                return $row->aset->count();
             })
             ->rawColumns(['aksi'])
             ->make(true);
@@ -49,7 +49,7 @@ class AdminInventarisRuanganController extends Controller
 
     public function detail($id)
     {
-        $data = Ruangan::with(['pegawai', 'inventaris'])->findOrFail($id);
+        $data = Ruangan::with(['pegawai', 'aset'])->findOrFail($id);
 
         return view('pages.admin.inventaris-ruangan.detail', [
             'data' => $data

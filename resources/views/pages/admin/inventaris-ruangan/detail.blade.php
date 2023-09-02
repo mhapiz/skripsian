@@ -1,18 +1,18 @@
 @extends('layouts.admin')
 
-@section('title', 'Inventaris Ruangan')
+@section('title', 'Aset Ruangan')
 @section('content')
     <div class="container-fluid">
         <div class="page-title">
             <div class="row">
                 <div class="col-6">
-                    <h3>Detail Inventaris Ruangan</h3>
+                    <h3>Detail Aset Ruangan</h3>
                 </div>
                 <div class="col-6">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item active"><a href="{{ route('admin.dashboard') }}">
                                 <i data-feather="home"></i></a></li>
-                        <li class="breadcrumb-item active">Detail Inventaris Ruangan </li>
+                        <li class="breadcrumb-item active">Detail Aset Ruangan </li>
                     </ol>
                 </div>
             </div>
@@ -22,12 +22,12 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header d-flex justify-content-between">
-                        <h5>Detail Inventaris Ruangan</h5>
+                        <h5>Detail Aset Ruangan</h5>
 
                         <a href="{{ route('admin.inventaris-ruangan.printDetail', $data->id_ruangan) }}"
                             class="btn btn-light btn-air-light" target="_blank">
                             <i class="fa fa-print" aria-hidden="true"></i>
-                            <span>Detail Inventaris Ruangan</span>
+                            <span>Detail Aset Ruangan</span>
                         </a>
                     </div>
                     <div class="card-body">
@@ -39,7 +39,7 @@
                                 </tr>
                                 <tr>
                                     <th width="250px">Penanggung Jawab Ruangan</th>
-                                    <td>{{ $data->pegawai->nama_pegawai }}</td>
+                                    <td>{{ $data->pegawai ? $data->pegawai->nama_pegawai : '-' }}</td>
                                 </tr>
                                 <tr>
                                     <th width="250px">Barang Inventaris</th>
@@ -54,25 +54,25 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach ($data->inventaris as $inven)
+                                                @foreach ($data->aset as $aset)
                                                     <tr>
                                                         <td>{{ $loop->iteration }}</td>
                                                         <td>
-                                                            {{ App\Models\Barang::find($inven->barang_id)->nama_barang }}
+                                                            {{ $aset->nama }}
                                                         </td>
                                                         <td>
-                                                            {{ App\Models\Barang::find($inven->barang_id)->kode_barang }}
+                                                            {{ $aset->kode }}
                                                             -
-                                                            {{ $inven->register }}
+                                                            {{ $aset->register }}
                                                         </td>
                                                         <td>
-                                                            @if ($inven->kondisi == 'baik')
+                                                            @if ($aset->kondisi == 'baik')
                                                                 <div class="badge badge-pill badge-success">Baik</div>
-                                                            @elseif ($inven->kondisi == 'cukup_baik')
+                                                            @elseif ($aset->kondisi == 'cukup_baik')
                                                                 <div class="badge badge-pill badge-light">Cukup Baik</div>
-                                                            @elseif ($inven->kondisi == 'rusak')
+                                                            @elseif ($aset->kondisi == 'rusak')
                                                                 <div class="badge badge-pill badge-warning">Rusak</div>
-                                                            @elseif ($inven->kondisi == 'rusak_berat')
+                                                            @elseif ($aset->kondisi == 'rusak_berat')
                                                                 <div class="badge badge-pill badge-danger">Rusak Berat</div>
                                                             @endif
                                                         </td>

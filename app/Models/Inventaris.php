@@ -16,6 +16,8 @@ class Inventaris extends Model
         'kondisi',
         'ruangan_id',
         'tahun_masuk',
+        'jenis_kepemilikan',
+        'pegawai_id'
     ];
 
     public function barang()
@@ -26,5 +28,10 @@ class Inventaris extends Model
     public function ruangan()
     {
         return $this->belongsTo(Ruangan::class, 'ruangan_id');
+    }
+
+    public function pegawai()
+    {
+        return $this->belongsTo(Pegawai::class, 'pegawai_id');
     }
 }

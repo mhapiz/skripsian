@@ -6,13 +6,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description"
-        content="Cuba admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities.">
-    <meta name="keywords"
-        content="admin template, Cuba admin template, dashboard template, flat admin template, responsive admin template, web app">
-    <meta name="author" content="pixelstrap">
+        content="Selamat datang di Situs Inventaris Kami! Temukan beragam informasi mengenai inventaris, stok barang, dan pengelolaan aset dengan efisien. Sistem kami membantu Anda mengelola inventaris secara terorganisir dan mudah.">
+    <meta name="keywords" content="inventaris, stok barang, pengelolaan aset, manajemen inventaris, pencatatan barang">
+    <meta name="author" content="mhpz">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link rel="icon" href="../assets/images/favicon.png" type="image/x-icon">
-    <link rel="shortcut icon" href="../assets/images/favicon.png" type="image/x-icon">
     <title>@yield('title')</title>
     @include('modules.backend.style')
     @livewireStyles
@@ -43,7 +40,7 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-12 footer-copyright text-center">
-                            <p class="mb-0">Copyright 2020 © Cuba theme by pixelstrap </p>
+                            <p class="mb-0">Copyright 2023</p>
                         </div>
                     </div>
                 </div>
@@ -53,6 +50,11 @@
     @include('modules.backend.script')
     @livewireScripts
     @stack('tambahScript')
+    <script>
+        $(document).on('select2:open', function(e) {
+            document.querySelector(`[aria-controls="select2-${e.target.id}-results"]`).focus();
+        });
+    </script>
 
 </body>
 

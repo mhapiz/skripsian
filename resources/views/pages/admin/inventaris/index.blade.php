@@ -32,10 +32,14 @@
 
                             </button>
                             <!-- Button trigger modal -->
-                            <button type="button" class="btn btn-light btn-air-light" data-toggle="modal"
+                            <button type="button" class="btn btn-light btn-air-light mx-2" data-toggle="modal"
                                 data-target="#distribusiBarangModal">
                                 Serah Terima
                             </button>
+
+                            <a href="{{ route('admin.inventaris.create') }}" class="btn btn-light btn-air-light">
+                                Tambah Barang
+                            </a>
                         </div>
                     </div>
                     <div class="card-body">
@@ -43,12 +47,19 @@
                             <div class="col-4">
                                 <div class="form-group">
                                     <select name="ruangan" id="ruangan" class="form-control">
-                                        <option value="">Semua</option>
-                                        <option value="-">Belum Ditempatkan</option>
-                                        @foreach ($ruangan as $r)
-                                            <option value="{{ $r->id_ruangan }}">
-                                                {{ $r->nama_ruangan }}</option>
-                                        @endforeach
+                                        <option value="all">Semua</option>
+                                        <option value="baik">
+                                            Baik
+                                        </option>
+                                        <option value="cukup_baik">
+                                            Cukup Baik
+                                        </option>
+                                        <option value="rusak">
+                                            Rusak
+                                        </option>
+                                        <option value="rusak_berat">
+                                            Rusak Berat
+                                        </option>
                                     </select>
                                 </div>
                             </div>
@@ -66,7 +77,7 @@
                                         <th>Nama Barang</th>
                                         <th>Kode Barang + No. Reg</th>
                                         <th>Kondisi</th>
-                                        <th>Ruangan</th>
+                                        <th>Kepemilikan</th>
                                         {{-- <th>QR Code</th> --}}
                                         <th width="50px">Aksi</th>
                                     </tr>
@@ -84,7 +95,7 @@
     <!-- Modal -->
     <div class="modal fade" id="distribusiBarangModal" tabindex="-1" aria-labelledby="distribusiBarangModalLabel"
         aria-hidden="true">
-        <div class="modal-dialog modal-lg">
+        <div class="modal-dialog modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="distribusiBarangModalLabel">Distribusi Barang Inventaris</h5>
@@ -97,7 +108,7 @@
                         @csrf
 
                         <div class="row">
-                            <div class="col-md-6">
+                            {{-- <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="">Nomor</label>
                                     <input type="text" name="no_serah_terima" id=""
@@ -107,7 +118,7 @@
                                             ? str_pad(App\Models\SerahTerima::orderBy('created_at', 'desc')->first()->no_serah_terima + 1, 3, '0', STR_PAD_LEFT)
                                             : str_pad('1', 3, '0', STR_PAD_LEFT) }}">
                                 </div>
-                            </div>
+                            </div> --}}
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="">Tanggal</label>
@@ -118,6 +129,18 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
+                                    <label for="">Jenis Kepemilikan</label>
+                                    <select name="jenis_kepemilikan" id="jenisKepemilikan"
+                                        class="form-control select2js @error('jenis_kepemilikan') is-invalid @enderror"
+                                        form="distribusiForm">
+                                        <option value="null">Pilih ...</option>
+                                        <option value="ruangan">Ruangan</option>
+                                        <option value="pegawai">Pegawai</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group" id="optionRuangan">
                                     <label for="">Ruangan</label>
                                     <select name="ruangan_id" id=""
                                         class="form-control select2js @error('ruangan_id') is-invalid @enderror"
@@ -126,6 +149,18 @@
                                         @foreach ($ruangan as $r)
                                             <option value="{{ $r->id_ruangan }}">
                                                 {{ $r->nama_ruangan }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group" id="optionPegawai">
+                                    <label for="">Pegawai</label>
+                                    <select name="pegawai_id" id=""
+                                        class="form-control select2js @error('pegawai_id') is-invalid @enderror"
+                                        form="distribusiForm">
+                                        <option></option>
+                                        @foreach ($pegawai as $r)
+                                            <option value="{{ $r->id_pegawai }}">
+                                                {{ $r->nama_pegawai }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -325,9 +360,11 @@
     <script>
         $(document).ready(function() {
 
-            loadData();
+            loadData("all");
 
-            function loadData(ruangan = '') {
+            function loadData(ruangan) {
+                let url = "{{ route('admin.inventaris.getData', ['filter' => ':filter']) }}";
+                url = url.replace(':filter', ruangan);
                 $('#table').DataTable({
                     language: {
                         "url": "//cdn.datatables.net/plug-ins/1.10.21/i18n/Indonesian.json",
@@ -336,10 +373,7 @@
                     processing: true,
                     serverside: true,
                     ajax: {
-                        url: "{{ route('admin.inventaris.getData') }}",
-                        data: {
-                            ruangan: ruangan,
-                        }
+                        url: url
                     },
                     columns: [{
                             data: 'DT_RowIndex',
@@ -358,8 +392,8 @@
                             name: 'kondisi'
                         },
                         {
-                            data: 'ruangan',
-                            name: 'ruangan'
+                            data: 'kepemilikan',
+                            name: 'kepemilikan'
                         },
                         // {
                         //     data: 'qr',
@@ -385,6 +419,26 @@
                     $('#table').DataTable().destroy();
                     loadData();
                 }
+            });
+
+            $('#optionRuangan').css('display', 'none')
+            $('#optionPegawai').css('display', 'none')
+
+            $('#jenisKepemilikan').change(function() {
+
+                //get the selected val using jQuery's 'this' method and assign to a var
+                var selectedVal = $(this).val();
+
+                if (selectedVal == 'ruangan') {
+                    $('#optionRuangan').css('display', 'block')
+                    $('#optionPegawai').css('display', 'none')
+                } else if (selectedVal == 'pegawai') {
+                    $('#optionRuangan').css('display', 'none')
+                    $('#optionPegawai').css('display', 'block')
+                }
+                console.log(selectedVal);
+                //perform the rest of your operations using aforementioned var
+
             });
 
 

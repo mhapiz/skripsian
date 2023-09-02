@@ -41,7 +41,7 @@
                     <li class="sidebar-main-title">
                         <div>
                             <h6>Master Data</h6>
-                            <p>Pegawai, Ruangan, Barang</p>
+                            <p>Pegawai, Ruangan, Aset</p>
                         </div>
                     </li>
 
@@ -54,34 +54,10 @@
                     </li>
 
                     <li class="sidebar-list">
-                        <a class="sidebar-link sidebar-title link-nav {{ request()->is('admin/pangkat*') ? 'active' : '' }}"
-                            href="{{ route('admin.pangkat.index') }}">
-                            <i data-feather="hash"></i>
-                            <span>Pangkat</span>
-                        </a>
-                    </li>
-
-                    <li class="sidebar-list">
                         <a class="sidebar-link sidebar-title link-nav {{ request()->is('admin/ruangan*') ? 'active' : '' }}"
                             href="{{ route('admin.ruangan.index') }}">
                             <i data-feather="hash"></i>
                             <span>Ruangan</span>
-                        </a>
-                    </li>
-
-                    <li class="sidebar-list">
-                        <a class="sidebar-link sidebar-title link-nav {{ request()->is('admin/suplier*') ? 'active' : '' }}"
-                            href="{{ route('admin.suplier.index') }}">
-                            <i data-feather="hash"></i>
-                            <span>Suplier</span>
-                        </a>
-                    </li>
-
-                    <li class="sidebar-list">
-                        <a class="sidebar-link sidebar-title link-nav {{ request()->is('admin/barang') || request()->is('admin/barang/create') || request()->is('admin/barang/edit*') ? 'active' : '' }}"
-                            href="{{ route('admin.barang.index') }}">
-                            <i data-feather="hash"></i>
-                            <span>Barang</span>
                         </a>
                     </li>
 
@@ -93,76 +69,57 @@
                         </a>
                     </li>
 
-                    <li class="sidebar-main-title">
-                        <div>
-                            <h6>Transaksi </h6>
-                            <p>Inventaris, Barang Masuk & Keluar</p>
-                        </div>
-                    </li>
-
-                    <li class="sidebar-list">
-                        <a class="sidebar-link sidebar-title link-nav {{ request()->is('admin/gaji-pegawai*') ? 'active' : '' }}"
-                            href="{{ route('admin.gaji-pegawai.index') }}">
-                            <i data-feather="hash"></i>
-                            <span>Gaji Pegawai</span>
-                        </a>
-                    </li>
-
-                    <li class="sidebar-list">
-                        <a class="sidebar-link sidebar-title link-nav {{ request()->is('admin/barang-masuk*') ? 'active' : '' }}"
-                            href="{{ route('admin.barang-masuk.index') }}">
-                            <i data-feather="hash"></i>
-                            <span>Barang Masuk</span>
-                        </a>
-                    </li>
-
-                    <li class="sidebar-list">
-                        <a class="sidebar-link sidebar-title link-nav {{ request()->is('admin/pemeriksaan-barang*') ? 'active' : '' }}"
-                            href="{{ route('admin.pemeriksaan-barang.index') }}">
-                            <i data-feather="hash"></i>
-                            <span>Pemeriksaan Barang</span>
-                        </a>
-                    </li>
-
-                    <li class="sidebar-list">
-                        <a class="sidebar-link sidebar-title link-nav {{ request()->is('admin/inventaris*') ? 'active' : '' }}"
-                            href="{{ route('admin.inventaris.index') }}">
-                            <i data-feather="hash"></i>
-                            <span>Inventaris</span>
-                        </a>
-                    </li>
-
                     <li class="sidebar-list">
                         <a class="sidebar-link sidebar-title link-nav {{ request()->is('admin/inventaris-ruangan*') ? 'active' : '' }}"
                             href="{{ route('admin.inventaris-ruangan.index') }}">
                             <i data-feather="hash"></i>
-                            <span>Inventaris Ruangan</span>
+                            <span>Aset Ruangan</span>
                         </a>
                     </li>
 
-                    <li class="sidebar-list">
-                        <a class="sidebar-link sidebar-title link-nav {{ request()->is('admin/serah-terima-barang*') ? 'active' : '' }}"
-                            href="{{ route('admin.serah-terima-barang.index') }}">
-                            <i data-feather="hash"></i>
-                            <span>Serah Terima Barang</span>
-                        </a>
-                    </li>
+                    {{--
+                <li class="sidebar-list">
+                    <a class="sidebar-link sidebar-title link-nav {{ request()->is('admin/gaji-pegawai*') ? 'active' : '' }}"
+                        href="{{ route('admin.gaji-pegawai.index') }}">
+                        <i data-feather="hash"></i>
+                        <span>Gaji Pegawai</span>
+                    </a>
+                </li>
 
-                    <li class="sidebar-list">
-                        <a class="sidebar-link sidebar-title link-nav {{ request()->is('admin/laporan-barang-masuk*') ? 'active' : '' }}"
-                            href="{{ route('admin.laporan-barang-masuk.index') }}">
-                            <i data-feather="hash"></i>
-                            <span>Laporan Keuangan</span>
-                        </a>
-                    </li>
+                <li class="sidebar-list">
+                    <a class="sidebar-link sidebar-title link-nav {{ request()->is('admin/barang-masuk*') ? 'active' : '' }}"
+                        href="{{ route('admin.barang-masuk.index') }}">
+                        <i data-feather="hash"></i>
+                        <span>Barang Masuk</span>
+                    </a>
+                </li>
 
-                    <li class="sidebar-list">
-                        <a class="sidebar-link sidebar-title link-nav {{ request()->is('admin/aset-masuk*') ? 'active' : '' }}"
-                            href="{{ route('admin.aset-masuk.index') }}">
-                            <i data-feather="hash"></i>
-                            <span>Aset Masuk</span>
-                        </a>
-                    </li>
+                <li class="sidebar-list">
+                    <a class="sidebar-link sidebar-title link-nav {{ request()->is('admin/pemeriksaan-barang*') ? 'active' : '' }}"
+                        href="{{ route('admin.pemeriksaan-barang.index') }}">
+                        <i data-feather="hash"></i>
+                        <span>Pemeriksaan Barang</span>
+                    </a>
+                </li>
+
+
+
+                <li class="sidebar-list">
+                    <a class="sidebar-link sidebar-title link-nav {{ request()->is('admin/serah-terima-barang*') ? 'active' : '' }}"
+                        href="{{ route('admin.serah-terima-barang.index') }}">
+                        <i data-feather="hash"></i>
+                        <span>Serah Terima Barang</span>
+                    </a>
+                </li>
+
+                <li class="sidebar-list">
+                    <a class="sidebar-link sidebar-title link-nav {{ request()->is('admin/laporan-barang-masuk*') ? 'active' : '' }}"
+                        href="{{ route('admin.laporan-barang-masuk.index') }}">
+                        <i data-feather="hash"></i>
+                        <span>Laporan Keuangan</span>
+                    </a>
+                </li>
+                --}}
                 @elseif (Auth::user()->role == 'pimpinan')
                     <li class="sidebar-main-title pt-0">
                         <div>

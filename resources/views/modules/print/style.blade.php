@@ -1,9 +1,10 @@
 <style>
     body {
-        margin: 5px 20px;
+        /* margin: 5px 20px; */
         padding: 0;
         box-sizing: border-box;
-        font-family: 'Times New Roman', Times, serif;
+        /* font-family: 'Times New Roman', Times, serif; */
+        font-family: "Trebuchet MS", Tahoma, sans-serif;
         font-size: 14px;
     }
 
@@ -51,6 +52,13 @@
     th {
         border: 1px solid black;
         padding: 8px 12px;
+    }
+
+    .table-borderless td,
+    th {
+        border: none;
+        padding: 4px 6px;
+        margin: 0;
     }
 
 

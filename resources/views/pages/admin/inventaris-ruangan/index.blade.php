@@ -1,18 +1,18 @@
 @extends('layouts.admin')
 
-@section('title', 'Inventaris Ruangan')
+@section('title', 'Aset Ruangan')
 @section('content')
     <div class="container-fluid">
         <div class="page-title">
             <div class="row">
                 <div class="col-6">
-                    <h3>Inventaris Ruangan</h3>
+                    <h3>Aset Ruangan</h3>
                 </div>
                 <div class="col-6">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item active"><a href="{{ route('admin.dashboard') }}">
                                 <i data-feather="home"></i></a></li>
-                        <li class="breadcrumb-item active">Inventaris Ruangan </li>
+                        <li class="breadcrumb-item active">Aset Ruangan </li>
                     </ol>
                 </div>
             </div>
@@ -22,7 +22,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header d-flex align-items-center justify-content-between">
-                        <h5>Tabel Data Inventaris Ruangan</h5>
+                        <h5>Tabel Data Aset Ruangan</h5>
 
                         <div class="d-flex ">
                             <a href="{{ route('admin.inventaris-ruangan.printRekap') }}"
@@ -39,7 +39,7 @@
                                         <th>No.</th>
                                         <th>Nama Ruangan</th>
                                         <th>Penanggung Jawab Ruangan</th>
-                                        <th>Jumlah Barang Inventaris</th>
+                                        <th>Jumlah Aset Ruangan</th>
                                         <th width="50px">Aksi</th>
                                     </tr>
                                 </thead>
@@ -90,8 +90,8 @@
                         name: 'pegawai'
                     },
                     {
-                        data: 'jumlah_barang_inventaris',
-                        name: 'jumlah_barang_inventaris'
+                        data: 'jumlah_aset',
+                        name: 'jumlah_aset'
                     },
                     {
                         data: "aksi",

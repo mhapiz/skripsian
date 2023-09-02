@@ -113,12 +113,7 @@ class AdminAsetMasukController extends Controller
 
         $tahun = Carbon::parse($req['tanggal'])->year;
 
-        $am = AsetMasuk::create([
-            'nomor' => $req['nomor'],
-            'tanggal' => $req['tanggal'],
-            'suplier_id' => $req['suplier_id'],
-            'total_harga' => '0',
-        ]);
+        $am = AsetMasuk::create($req);
 
         $total_harga = 0;
         foreach ($request->kode_aset as $key => $value) {

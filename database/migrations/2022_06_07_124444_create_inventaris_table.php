@@ -13,14 +13,29 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('tb_inventaris', function (Blueprint $table) {
-            $table->id('id_inventaris');
-            $table->unsignedInteger('barang_id');
-            $table->integer('register');
+        Schema::create('tb_aset', function (Blueprint $table) {
+            $table->id('id');
+            $table->text('foto_path');
+            $table->string('kode');
+            $table->string('nama');
+            $table->string('merk');
+
+            $table->text('keterangan')->nullable();
+
+            $table->string('jenis')->default('aset'); // aset, kendaraan;
+
+            $table->string('no_bpkb')->nullable();
+            $table->string('no_polisi')->nullable();
+            $table->string('no_rangka')->nullable();
+            $table->string('no_mesin')->nullable();
+            // $table->unsignedInteger('barang_id');
+            $table->bigInteger('register');
             $table->string('kondisi');
             $table->string('tahun_masuk');
-            // $table->string('keterangan');
+            $table->string('jenis_kepemilikan')->nullable();
             $table->unsignedInteger('ruangan_id')->nullable();
+            $table->unsignedInteger('pegawai_id')->nullable();
+            $table->integer('print')->nullable();
             $table->timestamps();
         });
     }
@@ -32,6 +47,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tb_inventaris');
+        Schema::dropIfExists('tb_aset');
     }
 };
