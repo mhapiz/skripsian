@@ -17,8 +17,8 @@ class Ruangan extends Model
         return $this->belongsTo(Pegawai::class, 'pegawai_id', 'id_pegawai');
     }
 
-    public function inventaris()
+    public function aset()
     {
-        return $this->hasMany(Inventaris::class, 'ruangan_id', 'id_ruangan');
+        return $this->hasMany(Aset::class, 'ruangan_id', 'id_ruangan');
     }
 }

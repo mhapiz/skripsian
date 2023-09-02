@@ -22,14 +22,11 @@ class AdminController extends Controller
         //     ->orderByRaw('min(created_at) asc')->get();
         // $pengeluaranTahunIni = BarangMasuk::selectRaw('sum(total_harga) as total')
         //     ->whereYear('tanggal', '=', $tahunIni)->first();
-        // $inven = Inventaris::get()->count();
+        $totalAset = Aset::get()->count();
         // $aset = Aset::get()->count();
         return view('pages.admin.dashboard', [
             'bm' => $bm ?? null,
-            'inven' => $inven ?? null,
-            'aset' => $aset ?? null,
-            'pengeluaranTahunIni' => $pengeluaranTahunIni ?? null,
-
+            'totalAset' => $totalAset ?? null,
         ]);
     }
 

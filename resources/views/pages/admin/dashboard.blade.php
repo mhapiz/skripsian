@@ -37,55 +37,14 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <h4>{{ $inven }} </h4>
+                                <h4>{{ $totalAset }} </h4>
                                 <h6>Total Barang Inventaris</h6>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <h4>{{ $aset }} </h4>
-                                <h6>Total Aset Tetap</h6>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="col-md-8">
-                <div class="card earning-card">
-                    <div class="card-body p-0">
-                        <div class="row m-0">
-                            <div class="col-xl-3 earning-content p-0">
-                                <div class="row m-0 chart-left">
-                                    <div class="col-xl-12 p-0 left_side_earning">
-                                        <h5>Dashboard</h5>
-                                        {{-- <p class="font-roboto">Total Pengeluaran Tahun ini</p> --}}
-                                    </div>
-                                    <div class="col-xl-12 p-0 left_side_earning">
-                                        <h5>Rp. {{ number_format($pengeluaranTahunIni->total ?? 0, 0, ',', '.') }} </h5>
-                                        <p class="font-roboto">Pengeluaran Tahun Ini</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-9 p-0">
-                                <div class="chart-right">
-                                    <div class="row">
-                                        <div class="col-xl-12">
-                                            <div class="card-body p-0">
-                                                <div class="current-sale-container" style="position: relative;">
-                                                    <canvas id="line-chart" width="800" height="450"></canvas>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 @endsection

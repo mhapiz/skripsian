@@ -75,16 +75,21 @@
 @endsection
 
 @push('tambahStyle')
-    <link rel="stylesheet" type="text/css" href="{{ asset('cuba/assets/css/vendors/select2.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@ttskch/select2-bootstrap4-theme@x.x.x/dist/select2-bootstrap4.min.css">
 @endpush
 
 @push('tambahScript')
-    <script src="{{ asset('cuba/assets/js/select2/select2.full.min.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
 
     <script>
         $(document).ready(function() {
             $("#select2").select2({
-                placeholder: "Pilih Pegawai",
+                placeholder: "Pilih ...",
+                theme: 'bootstrap4',
             });
         });
     </script>

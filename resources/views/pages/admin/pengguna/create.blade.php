@@ -49,7 +49,7 @@
                                         <select class="custom-select @error('role') is-invalid @enderror" name="role">
                                             <option selected>Pilih Peran ...</option>
                                             <option value="admin">Admin</option>
-                                            <option value="pimpinan">Pimpinan</option>
+                                            {{-- <option value="pimpinan">Pimpinan</option> --}}
                                         </select>
                                         @error('role')
                                             <div class="invalid-feedback">

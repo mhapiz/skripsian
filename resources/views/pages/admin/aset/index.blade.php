@@ -25,12 +25,7 @@
                         <h5>Tabel Data Aset</h5>
 
                         <div class="d-flex">
-                            <button type="button" class="btn btn-light btn-air-light" data-toggle="modal"
-                                data-target="#exampleModal">
-                                <i class="fa fa-print" aria-hidden="true"></i>
-                                <span>Rekap Aset</span>
-
-                            </button>
+                            @livewire('export-aset')
 
                             <a href="{{ route('admin.mutasi.distribusi') }}" class="btn btn-light btn-air-light mx-2">
                                 Mutasi
@@ -96,6 +91,7 @@
     </div>
 
 
+
 @endsection
 
 @push('tambahStyle')
@@ -129,6 +125,14 @@
     </script>
     <script>
         $(document).ready(function() {
+            window.livewire.on('exported', () => {
+                $('#exportModal').modal('hide');
+                $("#submitButton").click(function() {
+                    $(this).text("Print");
+                    $(this).prop("disabled", false);
+                    $('#closeButton').prop("disabled", false);
+                });
+            });
 
             loadData("all");
 

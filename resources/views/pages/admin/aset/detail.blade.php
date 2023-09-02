@@ -73,7 +73,7 @@
                                         <tr>
                                             <th>Jenis Kepemilikan</th>
                                             <td>
-                                                {{ ucwords($data->jenis_kepemilikan) }}
+                                                {{ $data->jenis_kepemilikan ? ucwords($data->jenis_kepemilikan) : 'Bebas' }}
                                             </td>
                                         </tr>
 
@@ -90,11 +90,11 @@
                                                     {{ $data->ruangan->pegawai ? $data->ruangan->pegawai->nama_pegawai : '-' }}
                                                 </td>
                                             </tr>
-                                        @else
+                                        @elseif($data->jenis_kepemilikan === 'pegawai')
                                             <tr>
                                                 <th>Nama Pegawai</th>
                                                 <td>
-                                                    {{ $data->pegawai->nama_pegawai }}
+                                                    {{ $data->pegawai ? $data->pegawai->nama_pegawai : '-' }}
                                                 </td>
                                             </tr>
                                         @endif
@@ -105,7 +105,7 @@
                             <tr>
                                 <td>
                                     <h6>QR Code Aset</h6>
-                                    {{ QrCode::size(200)->generate(route('inventaris-detail', md5($data->id_aset))) }}
+                                    {{ QrCode::size(200)->generate(route('inventaris-detail', md5($data->id))) }}
                                 </td>
                             </tr>
                         </table>

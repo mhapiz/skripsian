@@ -50,6 +50,11 @@
     @include('modules.backend.script')
     @livewireScripts
     @stack('tambahScript')
+    <script>
+        $(document).on('select2:open', function(e) {
+            document.querySelector(`[aria-controls="select2-${e.target.id}-results"]`).focus();
+        });
+    </script>
 
 </body>
 

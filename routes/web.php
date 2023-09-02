@@ -1,22 +1,12 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminAsetController;
-use App\Http\Controllers\Admin\AdminAsetMasukController;
-use App\Http\Controllers\Admin\AdminBarangController;
-use App\Http\Controllers\Admin\AdminBarangMasukController;
 use App\Http\Controllers\Admin\AdminController;
-use App\Http\Controllers\Admin\AdminGajiPegawaiController;
-use App\Http\Controllers\Admin\AdminInventarisController;
 use App\Http\Controllers\Admin\AdminInventarisRuanganController;
-use App\Http\Controllers\Admin\AdminLaporanBarangMasukController;
 use App\Http\Controllers\Admin\AdminMutasiController;
-use App\Http\Controllers\Admin\AdminPangkatController;
 use App\Http\Controllers\Admin\AdminPegawaiController;
-use App\Http\Controllers\Admin\AdminPemeriksaanBarangController;
 use App\Http\Controllers\Admin\AdminPenggunaController;
 use App\Http\Controllers\Admin\AdminRuanganController;
-use App\Http\Controllers\Admin\AdminSerahTerimaController;
-use App\Http\Controllers\Admin\AdminSuplierController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AutoCompleteController;
 use App\Http\Controllers\HomeController;
@@ -43,12 +33,13 @@ Route::post('login-proses', [AuthController::class, 'loginProses'])->name('login
 Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::get('forbidden-access', [HomeController::class, 'forbidden'])->name('forbidden');
+Route::get('print', [HomeController::class, 'textExport'])->name('textExport');
 
 Route::get('/', function () {
     return redirect()->route('login.view');
 });
 
-Route::get('/print', [AdminController::class, 'print'])->name('print');
+// Route::get('/print', [AdminController::class, 'print'])->name('print');
 
 Route::post('autocomplete-barang', [AutoCompleteController::class, 'autocompleteBarang'])->name('autocompleteBarang');
 Route::post('autocomplete-aset', [AutoCompleteController::class, 'autocompleteAset'])->name('autocompleteAset');
@@ -126,7 +117,7 @@ Route::prefix('admin')
         });
 
         // Inventaris Ruangan
-        Route::prefix('inventaris-ruangan')->group(function () {
+        Route::prefix('aset-ruangan')->group(function () {
             Route::get('/', [AdminInventarisRuanganController::class, 'index'])->name('admin.inventaris-ruangan.index');
             Route::get('get-data', [AdminInventarisRuanganController::class, 'getData'])->name('admin.inventaris-ruangan.getData');
 
@@ -155,6 +146,8 @@ Route::prefix('admin')
             Route::put('/update/{id}', [AdminAsetController::class, 'update'])->name('admin.aset.update');
 
             Route::post('/distribusi', [AdminAsetController::class, 'distribusi'])->name('admin.aset.distribusi');
+
+            // Route::get('/edit/{id}', [AdminAsetController::class, 'edit'])->name('admin.aset.edit');
         });
     });
 

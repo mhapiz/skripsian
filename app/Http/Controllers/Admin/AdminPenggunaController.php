@@ -44,9 +44,7 @@ class AdminPenggunaController extends Controller
 
     public function create()
     {
-        $pangkat = Pangkat::all();
         return view('pages.admin.pengguna.create', [
-            'pangkat' => $pangkat
         ]);
     }
 

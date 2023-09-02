@@ -124,7 +124,7 @@
                                             <div class="form-group">
                                                 <label for="">Jenis Kepemilikan</label>
                                                 <select name="jenis_kepemilikan" id="jenisKepemilikan"
-                                                    class="form-control select2jsDistribusi @error('jenis_kepemilikan') is-invalid @enderror">
+                                                    class="form-control select2js @error('jenis_kepemilikan') is-invalid @enderror">
                                                     <option value="null">Pilih ...</option>
                                                     <option value="ruangan"
                                                         {{ $data->jenis_kepemilikan == 'ruangan' ? 'selected' : '' }}>
@@ -140,7 +140,7 @@
                                         <div class="col-md-4">
                                             <div class="form-group" id="optionRuangan">
                                                 <label>Ruangan</label>
-                                                <select name="ruangan_id"
+                                                <select name="ruangan_id" id="ruanganSelect2Js"
                                                     class="form-control select2js @error('ruangan_id') is-invalid @enderror">
                                                     <option></option>
                                                     @foreach ($ruangan as $r)
@@ -157,7 +157,7 @@
                                             </div>
                                             <div class="form-group" id="optionPegawai">
                                                 <label for="">Pegawai</label>
-                                                <select name="pegawai_id" id=""
+                                                <select name="pegawai_id" id="pegawaiSelect2Js"
                                                     class="form-control select2js @error('pegawai_id') is-invalid @enderror">
                                                     <option></option>
                                                     @foreach ($pegawai as $r)
@@ -185,6 +185,7 @@
             </div>
         </div>
     </div>
+
 @endsection
 
 @push('tambahStyle')
@@ -198,8 +199,8 @@
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
     <script>
-        var jenisKepemilikan = <?php echo json_encode($data->jenis_kepemilikan); ?>;
         $(document).ready(function() {
+            var jenisKepemilikan = $('#jenisKepemilikan').find(":selected").val();
             var option = jenisKepemilikan;
 
             if (option == 'ruangan') {
@@ -222,10 +223,11 @@
                 }
             });
 
-            $('.select2js').select2({
+            $('#pegawaiSelect2Js, #jenisKepemilikan, #ruanganSelect2Js').select2({
                 placeholder: "Pilih ...",
                 theme: 'bootstrap4',
             });
+
         });
     </script>
 @endpush

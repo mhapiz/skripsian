@@ -4,15 +4,14 @@ namespace App\Http\Controllers\Admin;
 
 use Carbon\Carbon;
 use App\Models\Aset;
-use App\Models\Barang;
 use App\Models\Pegawai;
 use App\Models\Ruangan;
-use App\Models\Inventaris;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\ValidationException;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -247,6 +246,33 @@ class AdminAsetController extends Controller
 
         Alert::success('Berhasil', 'Data Berhasil Diubah');
         return redirect()->route('admin.aset.index');
+    }
+
+    public function export(Collection $asetCollection, string $jenis)
+    {
+        self::updateAsetPrinted($asetCollection);
+
+        if ($jenis == 'aset') {
+            $pdf = Pdf::loadView('print.print-aset', [
+                'data' => $asetCollection
+            ])->setPaper('a4', 'portrait');
+        } elseif ($jenis == 'kendaraanDinas') {
+            $pdf = Pdf::loadView('print.print-aset-kendaraan', [
+                'data' => $asetCollection
+            ])->setPaper('a4', 'portrait');
+        }
+
+        return $pdf;
+    }
+
+    private function updateAsetPrinted(Collection $asetCollection)
+    {
+        foreach ($asetCollection as $key => $aset) {
+            $lastNum = is_null($aset->print) ? 0 : $aset->print;
+            $aset->update([
+                'print' => $lastNum + 1
+            ]);
+        }
     }
 
 }

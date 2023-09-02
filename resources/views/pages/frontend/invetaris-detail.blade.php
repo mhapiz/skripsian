@@ -20,19 +20,19 @@
     </header>
 
     <div class="container">
-        <div class="row">
+        <div class="row d-flex justify-content-center">
             <div class="col-12 m-4">
-                <h1 class="h3 text-center">Detail Barang Inventaris</h1>
+                <h1 class="h3 text-center">Detail Aset</h1>
             </div>
-            <div class="col-12">
+            <div class="col-12 col-lg-4">
                 <table class="table table-bordered">
                     <tr>
-                        <th width="200px">Nama Barang</th>
-                        <td>{{ $data->barang->nama_barang }}</td>
+                        <th width="200px">Nama Aset</th>
+                        <td>{{ $data->nama }}</td>
                     </tr>
                     <tr>
-                        <th>Kode Barang</th>
-                        <td>{{ $data->barang->kode_barang }}</td>
+                        <th>Kode Aset</th>
+                        <td>{{ $data->kode }}</td>
                     </tr>
                     <tr>
                         <th>Nomor Register</i></th>
@@ -44,36 +44,63 @@
                     </tr>
                     <tr>
                         <th>QR Code</i></th>
-                        <td>{{ QrCode::size(200)->generate(route('admin.inventaris.detail', md5($data->id_inventaris))) }}
+                        <td>{{ QrCode::size(200)->generate(route('inventaris-detail', md5($data->id))) }}
                         </td>
                     </tr>
                     <tr>
                         <th>Foto Barang</th>
                         <td>
-                            <img src="{{ asset('storage/barang/' . $data->barang->foto_path) }}"
-                                alt="foto{{ $data->barang->nama_barang }}" width="200px">
+                            <img src="{{ asset('storage/barang/' . $data->foto_path) }}" alt="foto{{ $data->nama }}"
+                                width="200px">
                         </td>
                     </tr>
+                    @if ($data->jenis === 'kendaraanDinas')
+                        <tr>
+                            <th>Nomor BPKB</i></th>
+                            <td>{{ $data->no_bpkb }}</td>
+                        </tr>
+                        <tr>
+                            <th>Nomor Polisi</i></th>
+                            <td>{{ $data->no_polisi }}</td>
+                        </tr>
+                        <tr>
+                            <th>Nomor Rangka</i></th>
+                            <td>{{ $data->no_rangka }}</td>
+                        </tr>
+                        <tr>
+                            <th>Nomor Mesin</i></th>
+                            <td>{{ $data->no_mesin }}</td>
+                        </tr>
+                    @endif
+
                     <tr>
-                        <th>Ruangan</i></th>
+                        <th>Jenis Kepemilikan</th>
                         <td>
-                            @if ($data->ruangan)
+                            {{ $data->jenis_kepemilikan ? ucwords($data->jenis_kepemilikan) : 'Bebas' }}
+                        </td>
+                    </tr>
+
+                    @if ($data->jenis_kepemilikan === 'ruangan')
+                        <tr>
+                            <th>Ruangan</th>
+                            <td>
                                 {{ $data->ruangan->nama_ruangan }}
-                            @else
-                                -
-                            @endif
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>Penanggung Jawab</i></th>
-                        <td>
-                            @if ($pegawai)
-                                {{ $pegawai->nama_pegawai }}
-                            @else
-                                -
-                            @endif
-                        </td>
-                    </tr>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Penanggung Jawab Ruangan</th>
+                            <td>
+                                {{ $data->ruangan->pegawai ? $data->ruangan->pegawai->nama_pegawai : '-' }}
+                            </td>
+                        </tr>
+                    @elseif($data->jenis_kepemilikan === 'pegawai')
+                        <tr>
+                            <th>Nama Pegawai</th>
+                            <td>
+                                {{ $data->pegawai ? $data->pegawai->nama_pegawai : '-' }}
+                            </td>
+                        </tr>
+                    @endif
                 </table>
             </div>
         </div>
