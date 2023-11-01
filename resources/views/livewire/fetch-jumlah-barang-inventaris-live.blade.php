@@ -6,7 +6,7 @@
                 form="distribusiForm" id="aset_id{{ $idx }}" name="aset_id[]">
                 <option value=""></option>
                 @foreach ($barangFree as $b)
-                    <option value="{{ $b->id }}">{{ $b->nama }} - {{ $b->kode }}</option>
+                    <option value="{{ $b['id'] }}">{{ $b['nama'] }} - {{ $b['kode'] }}</option>
                 @endforeach
             </select>
         </div>

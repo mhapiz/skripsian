@@ -47,14 +47,15 @@ class FetchJumlahBarangInventarisLive extends Component
                 ['nama', '=', $aset->nama],
                 ['kode', '=', $aset->kode],
                 ['merk', '=', $aset->merk],
-                ['kondisi', '=', $this->kondisi]
+                ['kondisi', '=', $this->kondisi],
+                ['jenis_kepemilikan', '=', null]
             ])->get();
 
             $this->jumlahBarang = $collectionAset->count();
         }
 
         if ($this->barangFree == null) {
-            $this->barangFree = Aset::getUniqueAssets();
+            $this->barangFree = Aset::getFreeUniqueAset();
         }
         return view('livewire.fetch-jumlah-barang-inventaris-live');
     }

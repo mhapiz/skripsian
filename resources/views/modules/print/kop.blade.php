@@ -13,7 +13,7 @@
                     KECAMATAN MARTAPURA
                 </p>
                 <p style="font-size: 1rem; text-align: center" class="fw-bold">
-                    Jl.Sekumpul Ujung No.1 Bincau kode Pos 70651
+                    Jl.Sekumpul Ujung No.1 Bincau kode Pos 70651 Email: martapura.kecamatan@gmail.com
                 </p>
             </td>
             <td style="width: 10%">

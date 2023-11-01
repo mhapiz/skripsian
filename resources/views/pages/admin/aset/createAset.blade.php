@@ -25,7 +25,17 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h5>Tambah Data Aset</h5>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <a href="{{ url()->previous() }}" class="btn btn-light btn-air-light">
+                                    <i class="fa fa-chevron-left" aria-hidden="true"></i>
+                                </a>
+                            </div>
+                            <div class="col-md-4">
+                                <h5>Tambah Data Aset</h5>
+                            </div>
+                            <div class="col-md-4"></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -68,27 +78,34 @@
                                                     placeholder="Aset">
                                             </div>
                                             <div class="form-group">
-                                                <label>Kode Aset</label>
-                                                <input class="form-control" type="text" required name="kode[]"
-                                                    placeholder="Kode Aset">
-                                            </div>
-                                            <div class="form-group">
                                                 <label>Merk</label>
                                                 <input class="form-control" type="text" required name="merk[]"
                                                     placeholder="Merk">
                                             </div>
+                                            <div class="form-group">
+                                                <label>Kode Aset</label>
+                                                <input class="form-control" type="text" required name="kode[]"
+                                                    placeholder="Kode Aset">
+                                            </div>
                                         </div>
                                         <div class="col-md-6">
-                                            <div class="form-group">
+                                            <div class="form-group pb-3">
                                                 <label>Keterangan</label>
                                                 <textarea name="keterangan[]" rows="4" class="form-control"></textarea>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Tahun Perolehan</label>
+                                                <input class="form-control" type="text" required name="tahun[]"
+                                                    placeholder="Tahun">
                                             </div>
                                         </div>
                                     </div>
 
                                 </div>
 
-                                <div class="col-md-4"></div>
+                                <div class="col-md-4">
+
+                                </div>
 
                                 <div class="col-md-8">
                                     <div class="row">
@@ -112,9 +129,6 @@
                                                     <option value="cukup_baik">
                                                         Cukup Baik
                                                     </option>
-                                                    <option value="rusak">
-                                                        Rusak
-                                                    </option>
                                                     <option value="rusak_berat">
                                                         Rusak Berat
                                                     </option>
@@ -124,7 +138,7 @@
 
                                         <div class="col-md-4">
                                             <div class="form-group">
-                                                <label for="">Harga Satuan</label>
+                                                <label for="">Harga </label>
                                                 <input type="number" required name="harga_satuan[]" id="harga_satuan"
                                                     class="form-control" form="formBarangMasuk">
                                             </div>
@@ -230,25 +244,25 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <script>
     toastr.options = {
-        "closeButton": true,
-        "debug": false,
-        "newestOnTop": true,
-        "progressBar": true,
-        "positionClass": "toast-top-right",
-        "preventDuplicates": false,
-        "onclick": null,
-        "showDuration": "3000",
-        "hideDuration": "3000",
-        "timeOut": "10000",
-        "extendedTimeOut": "10000",
-        "showEasing": "swing",
-        "hideEasing": "linear",
-        "showMethod": "fadeIn",
-        "hideMethod": "fadeOut"
-    }
-    @foreach ($errors->all() as $error)
-        toastr.error("{{ $error }}");
-    @endforeach
+            "closeButton": true,
+            "debug": false,
+            "newestOnTop": true,
+            "progressBar": true,
+            "positionClass": "toast-top-right",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "3000",
+            "hideDuration": "3000",
+            "timeOut": "10000",
+            "extendedTimeOut": "10000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
+        @foreach ($errors->all() as $error)
+            toastr.error("{{ $error }}");
+        @endforeach
 </script>
 <script>
     window.livewire.on('barangSaved', () => {
@@ -283,13 +297,13 @@
         var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
         $(document).ready(function() {
 
-       $("#submitButton").click(function() {
-            var button = $(this);
-            button.prop("disabled", true);
-            button.html("Memproses...");
-            // You can also perform any additional actions here, like form submission
-            // For example:
-            $("#formBarangMasuk").submit();
+            $("#submitButton").click(function() {
+                var button = $(this);
+                button.prop("disabled", true);
+                button.html("Memproses...");
+                // You can also perform any additional actions here, like form submission
+                // For example:
+                $("#formBarangMasuk").submit();
             });
 
             var max_fields = 10;
@@ -311,7 +325,7 @@
                                     id="foto_path${x}">
                                 <div class="custom-file">
                                     <input type="file"
-                                        class="custom-file-input"
+                                        class="custom-file-input @error('foto_path') is-invalid @enderror"
                                         required name="foto_path[]"
                                         onchange="document.getElementById('foto_path${x}').src = window.URL.createObjectURL(this.files[0])">
                                     <label class="custom-file-label">Pilih foto...</label>
@@ -328,27 +342,34 @@
                                             placeholder="Aset">
                                     </div>
                                     <div class="form-group">
-                                        <label>Kode Aset</label>
-                                        <input class="form-control" type="text" required name="kode[]"
-                                            placeholder="Kode Aset">
-                                    </div>
-                                    <div class="form-group">
                                         <label>Merk</label>
                                         <input class="form-control" type="text" required name="merk[]"
                                             placeholder="Merk">
                                     </div>
+                                    <div class="form-group">
+                                        <label>Kode Aset</label>
+                                        <input class="form-control" type="text" required name="kode[]"
+                                            placeholder="Kode Aset">
+                                    </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <div class="form-group">
+                                    <div class="form-group pb-3">
                                         <label>Keterangan</label>
                                         <textarea name="keterangan[]" rows="4" class="form-control"></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Tahun Perolehan</label>
+                                        <input class="form-control" type="text" required name="tahun[]"
+                                            placeholder="Tahun">
                                     </div>
                                 </div>
                             </div>
 
                         </div>
 
-                        <div class="col-md-4"></div>
+                        <div class="col-md-4">
+
+                        </div>
 
                         <div class="col-md-8">
                             <div class="row">
@@ -372,9 +393,6 @@
                                             <option value="cukup_baik">
                                                 Cukup Baik
                                             </option>
-                                            <option value="rusak">
-                                                Rusak
-                                            </option>
                                             <option value="rusak_berat">
                                                 Rusak Berat
                                             </option>
@@ -384,7 +402,7 @@
 
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="">Harga Satuan</label>
+                                        <label for="">Harga </label>
                                         <input type="number" required name="harga_satuan[]" id="harga_satuan"
                                             class="form-control" form="formBarangMasuk">
                                     </div>

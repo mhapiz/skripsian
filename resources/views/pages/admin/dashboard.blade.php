@@ -25,7 +25,7 @@
         <div class="row">
             <div class="col-md-4">
                 <div class="row">
-                    <div class="col-12">
+                    {{-- <div class="col-12">
                         <div class="card">
                             <div class="card-body">
                                 <h5>Mutasi Barang</h5>
@@ -33,7 +33,7 @@
                                     barang</span>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">

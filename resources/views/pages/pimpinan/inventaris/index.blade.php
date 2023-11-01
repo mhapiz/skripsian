@@ -102,9 +102,6 @@
                                         <option value="cukup_baik">
                                             Cukup Baik
                                         </option>
-                                        <option value="rusak">
-                                            Rusak
-                                        </option>
                                         <option value="rusak_berat">
                                             Rusak Berat
                                         </option>

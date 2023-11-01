@@ -37,13 +37,13 @@ class HomeController extends Controller
 
     public function textExport()
     {
-        $asetCollection = Aset::where([
-            ['nama', '=', 'Revo Mantap'],
-            ['kode', '=', 'RV1232'],
-            ['merk', '=', 'Honda'],
-        ])
-            ->whereBetween('register', [1, 1])
-            ->orderBy('register', 'ASC')->get();
+        // $asetCollection = Aset::where([
+        //     ['nama', '=', 'Revo Mantap'],
+        //     ['kode', '=', 'RV1232'],
+        //     ['merk', '=', 'Honda'],
+        // ])
+        //     ->whereBetween('register', [1, 1])
+        //     ->orderBy('register', 'ASC')->get();
 
         // $asetCollection = Aset::where([
         //     ['nama', '=', 'Kursi Lipat'],
@@ -53,8 +53,8 @@ class HomeController extends Controller
         //     ->whereBetween('register', [1, 4])
         //     ->orderBy('register', 'ASC')->get();
 
-        $pdf = Pdf::loadView('print.print-aset-kendaraan', [
-            'data' => $asetCollection
+        $pdf = Pdf::loadView('print.print-bast', [
+            // 'data' => $asetCollection
         ])->setPaper('a4', 'portrait');
 
         return $pdf->stream();

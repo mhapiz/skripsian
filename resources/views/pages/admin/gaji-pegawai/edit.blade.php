@@ -102,7 +102,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Tahun</label>
+                                        <label>Tahun Perolehan</label>
                                         <input type="text" class="form-control" name="tahun"
                                             value="{{ $data->tahun }}">
                                     </div>

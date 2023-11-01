@@ -45,7 +45,14 @@ class AdminPegawaiController extends Controller
 
     public function create()
     {
+        $camat = Pegawai::where('jabatan', '=', 'Camat Martapura')->first();
+        if (!is_null($camat)) {
+            $isCamatExist = true;
+        } else {
+            $isCamatExist = false;
+        }
         return view('pages.admin.pegawai.create', [
+            'isCamatExist' => $isCamatExist
         ]);
     }
 

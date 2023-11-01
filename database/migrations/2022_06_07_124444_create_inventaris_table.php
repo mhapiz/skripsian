@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('kode');
             $table->string('nama');
             $table->string('merk');
+            $table->integer('harga');
 
             $table->text('keterangan')->nullable();
 

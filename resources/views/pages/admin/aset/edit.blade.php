@@ -104,10 +104,6 @@
                                                         {{ $data->kondisi == 'cukup_baik' ? 'selected' : '' }}>
                                                         Cukup Baik
                                                     </option>
-                                                    <option value="rusak"
-                                                        {{ $data->kondisi == 'rusak' ? 'selected' : '' }}>
-                                                        Rusak
-                                                    </option>
                                                     <option value="rusak_berat"
                                                         {{ $data->kondisi == 'rusak_berat' ? 'selected' : '' }}>
                                                         Rusak Berat

@@ -72,47 +72,46 @@
                 </td>
             </tr>
         </table> --}}
-        @foreach ($data as $d)
-            <table style="width: 45%">
-                <tr>
-                    <td style="width: 100%">
-                        <table class="w-full table table-bordered">
-                            <tr>
-                                <td colspan="2" style="text-align: center">
-                                    <p style="text-align: center; font-size: 16px; font-weight: 700;">
-                                        PEMERINTAH KABUPATEN BANJAR <br>
-                                        KECAMATAN MARTAPURA
-                                    </p>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="text-align: center; width: 20% !important">
-                                    <img src="{{ asset('assets/img/banjar.png') }}" style="width: 80px;" alt="">
-                                </td>
-                                <td style="text-align: center;width: 20% !important">
-                                    <img
-                                        src="data:image/png;base64, {{ base64_encode(QrCode::format('png')->size(100)->generate(route('inventaris-detail', md5($d->id)))) }} ">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="2">
-                                    <p style="text-align: center; font-weight: 700">
-                                        {{ $d->no_polisi }}
-                                    </p>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="2" style="padding: 4px 0px">
-                                    <p style="text-align: center; font-style: italic; font-size: 12px">
-                                        <span>*</span> Scan QR untuk mengetahui detail barang
-                                    </p>
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
-            </table>
-        @endforeach
+        <table style="width: 45%">
+            <tr>
+                <td>
+                    <table class="w-full table table-bordered">
+                        <tr>
+                            <td colspan="2" style="text-align: center">
+                                <p style="text-align: center; font-size: 16px; font-weight: 700;">
+                                    PEMERINTAH KABUPATEN BANJAR <br>
+                                    KECAMATAN MARTAPURA
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center">
+                                <img src="{{ asset('assets/img/banjar.png') }}" style="width: 80px;" alt="">
+                            </td>
+                            <td style="text-align: center">
+                                <img
+                                    src="data:image/png;base64, {{ base64_encode(QrCode::format('png')->size(100)->generate(route('inventaris-detail', md5($data->id)))) }} ">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <p style="text-align: center; font-weight: 700">
+                                    {{ $data->kode }} - {{ $data->register }}
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" style="padding: 4px 0px">
+                                <p style="text-align: center; font-style: italic; font-size: 12px">
+                                    <span>*</span> Scan QR untuk mengetahui detail barang
+                                </p>
+                            </td>
+                        </tr>
+
+                    </table>
+                </td>
+            </tr>
+        </table>
 
 
 

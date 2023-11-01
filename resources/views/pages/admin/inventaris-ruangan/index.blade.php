@@ -25,10 +25,10 @@
                         <h5>Tabel Data Aset Ruangan</h5>
 
                         <div class="d-flex ">
-                            <a href="{{ route('admin.inventaris-ruangan.printRekap') }}"
+                            {{-- <a href="{{ route('admin.inventaris-ruangan.printRekap') }}"
                                 class="btn btn-light btn-air-light mx-2 " target="_blank">
                                 Print Rekap
-                            </a>
+                            </a> --}}
                         </div>
                     </div>
                     <div class="card-body">

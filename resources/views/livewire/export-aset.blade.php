@@ -1,9 +1,8 @@
 <div>
     {{-- To attain knowledge, add things every day; To attain wisdom, subtract things every day. --}}
-    <button type="button" class="btn btn-light btn-air-light" data-toggle="modal" data-target="#exportModal">
-        <i class="fa fa-print" aria-hidden="true"></i>
+    <button type="button" class="btn btn-light btn-air-light mr-2" data-toggle="modal" data-target="#exportModal">
+        <i class="fa fa-qrcode mr-2"></i>
         <span>Print</span>
-
     </button>
 
     <div wire:ignore.self class="modal fade" id="exportModal" aria-labelledby="exportModalLabel" aria-hidden="true">
@@ -27,8 +26,8 @@
                                         id="aset_id">
                                         <option value=""></option>
                                         @foreach ($asetList as $aset)
-                                            <option value="{{ $aset->id }}">{{ $aset->nama }} -
-                                                {{ $aset->kode }}</option>
+                                        <option value="{{ $aset->id }}">{{ $aset->nama }} -
+                                            {{ $aset->kode }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -55,8 +54,7 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" id="closeButton"
-                        data-dismiss="modal">Tutup</button>
+                    <button type="button" class="btn btn-secondary" id="closeButton" data-dismiss="modal">Tutup</button>
                     <button type="submit" class="btn btn-primary" id="submitButton"
                         wire:click.prevent="export()">Print</button>
                 </div>
@@ -67,17 +65,17 @@
 
 
 @push('tambahStyle')
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
-    <link rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/@ttskch/select2-bootstrap4-theme@x.x.x/dist/select2-bootstrap4.min.css">
+<link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/@ttskch/select2-bootstrap4-theme@x.x.x/dist/select2-bootstrap4.min.css">
 @endpush
 
 @push('tambahScript')
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
-    <script>
-        initSelect2();
+<script>
+    initSelect2();
 
         document.addEventListener('livewire:load', function() {
 
@@ -106,5 +104,5 @@
             $(this).prop("disabled", true);
             $('#closeButton').prop("disabled", true);
         });
-    </script>
+</script>
 @endpush

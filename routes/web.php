@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\AdminMutasiController;
 use App\Http\Controllers\Admin\AdminPegawaiController;
 use App\Http\Controllers\Admin\AdminPenggunaController;
 use App\Http\Controllers\Admin\AdminRuanganController;
+use App\Http\Controllers\Admin\AdminAsetPegawaiController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AutoCompleteController;
 use App\Http\Controllers\HomeController;
@@ -127,6 +128,12 @@ Route::prefix('admin')
             Route::get('/print-detail/{id}', [AdminInventarisRuanganController::class, 'printDetail'])->name('admin.inventaris-ruangan.printDetail');
         });
 
+        // Aset Pegawai
+        Route::prefix('aset-pegawai')->group(function () {
+            Route::get('/', [AdminAsetPegawaiController::class, 'index'])->name('admin.aset-pegawai.index');
+            Route::get('get-data', [AdminAsetPegawaiController::class, 'getData'])->name('admin.aset-pegawai.getData');
+        });
+
 
         // Aset
         Route::prefix('aset')->group(function () {
@@ -142,140 +149,152 @@ Route::prefix('admin')
 
             Route::get('detail/{id}', [AdminAsetController::class, 'detail'])->name('admin.aset.detail');
 
+            Route::get('/hapus/{id}', [AdminAsetController::class, 'hapus'])->name('admin.aset.hapus');
+
             Route::get('/edit/{id}', [AdminAsetController::class, 'edit'])->name('admin.aset.edit');
             Route::put('/update/{id}', [AdminAsetController::class, 'update'])->name('admin.aset.update');
 
+            Route::get('print-aset/{id}', [AdminAsetController::class, 'print'])->name('admin.aset.print');
+
             Route::post('/distribusi', [AdminAsetController::class, 'distribusi'])->name('admin.aset.distribusi');
+
+            Route::post('/exportInventaris', [AdminAsetController::class, 'exportInventaris'])->name('admin.aset.exportInventaris');
+
+            Route::post('/exportKir', [AdminAsetController::class, 'exportKir'])->name('admin.aset.exportKir');
+
+            Route::post('/exportPaktaIntegritas', [AdminAsetController::class, 'exportPaktaIntegritas'])->name('admin.aset.exportPaktaInt');
+
+            Route::post('/exportBAST', [AdminAsetController::class, 'exportBAST'])->name('admin.aset.exportBAST');
 
             // Route::get('/edit/{id}', [AdminAsetController::class, 'edit'])->name('admin.aset.edit');
         });
     });
 
-Route::prefix('pimpinan')
-    ->middleware(['auth', 'isSuperadmin'])
-    ->group(function () {
-        Route::get('/', [PimpinanController::class, 'index'])->name('pimpinan.dashboard');
+//  Route::prefix('pimpinan')
+//     ->middleware(['auth', 'isSuperadmin'])
+//     ->group(function () {
+//         Route::get('/', [PimpinanController::class, 'index'])->name('pimpinan.dashboard');
 
-        // Pegawai
-        Route::prefix('pegawai')->group(function () {
-            Route::get('/', [PimpinanPegawaiController::class, 'index'])->name('pimpinan.pegawai.index');
-            Route::get('get-data', [PimpinanPegawaiController::class, 'getData'])->name('pimpinan.pegawai.getData');
+//         // Pegawai
+//         Route::prefix('pegawai')->group(function () {
+//             Route::get('/', [PimpinanPegawaiController::class, 'index'])->name('pimpinan.pegawai.index');
+//             Route::get('get-data', [PimpinanPegawaiController::class, 'getData'])->name('pimpinan.pegawai.getData');
 
-            Route::get('/print-rekap', [PimpinanPegawaiController::class, 'printRekap'])->name('pimpinan.pegawai.printRekap');
-        });
+//             Route::get('/print-rekap', [PimpinanPegawaiController::class, 'printRekap'])->name('pimpinan.pegawai.printRekap');
+//         });
 
-        // Pangkat
-        Route::prefix('pangkat')->group(function () {
-            Route::get('/', [PimpinanPangkatController::class, 'index'])->name('pimpinan.pangkat.index');
-            Route::get('get-data', [PimpinanPangkatController::class, 'getData'])->name('pimpinan.pangkat.getData');
-        });
+//         // Pangkat
+//         Route::prefix('pangkat')->group(function () {
+//             Route::get('/', [PimpinanPangkatController::class, 'index'])->name('pimpinan.pangkat.index');
+//             Route::get('get-data', [PimpinanPangkatController::class, 'getData'])->name('pimpinan.pangkat.getData');
+//         });
 
-        // Ruangan
-        Route::prefix('ruangan')->group(function () {
-            Route::get('/', [PimpinanRuanganController::class, 'index'])->name('pimpinan.ruangan.index');
-            Route::get('get-data', [PimpinanRuanganController::class, 'getData'])->name('pimpinan.ruangan.getData');
+//         // Ruangan
+//         Route::prefix('ruangan')->group(function () {
+//             Route::get('/', [PimpinanRuanganController::class, 'index'])->name('pimpinan.ruangan.index');
+//             Route::get('get-data', [PimpinanRuanganController::class, 'getData'])->name('pimpinan.ruangan.getData');
 
-            Route::get('/detail/{id}', [PimpinanRuanganController::class, 'detail'])->name('pimpinan.ruangan.detail');
-            Route::get('/print-detail/{id}', [PimpinanRuanganController::class, 'printDetail'])->name('pimpinan.ruangan.printDetail');
-        });
+//             Route::get('/detail/{id}', [PimpinanRuanganController::class, 'detail'])->name('pimpinan.ruangan.detail');
+//             Route::get('/print-detail/{id}', [PimpinanRuanganController::class, 'printDetail'])->name('pimpinan.ruangan.printDetail');
+//         });
 
-        // Suplier
+//         // Suplier
 
-        // Barang
-        Route::prefix('barang')->group(function () {
-            Route::get('/', [PimpinanBarangController::class, 'index'])->name('pimpinan.barang.index');
-            Route::get('get-data', [PimpinanBarangController::class, 'getData'])->name('pimpinan.barang.getData');
-        });
+//         // Barang
+//         Route::prefix('barang')->group(function () {
+//             Route::get('/', [PimpinanBarangController::class, 'index'])->name('pimpinan.barang.index');
+//             Route::get('get-data', [PimpinanBarangController::class, 'getData'])->name('pimpinan.barang.getData');
+//         });
 
-        //Gaji Pegawai
-        Route::prefix('gaji-pegawai')->group(function () {
-            Route::get('/', [PimpinanGajiPegawaiController::class, 'index'])->name('pimpinan.gaji-pegawai.index');
-            Route::get('get-data', [PimpinanGajiPegawaiController::class, 'getData'])->name('pimpinan.gaji-pegawai.getData');
+//         //Gaji Pegawai
+//         Route::prefix('gaji-pegawai')->group(function () {
+//             Route::get('/', [PimpinanGajiPegawaiController::class, 'index'])->name('pimpinan.gaji-pegawai.index');
+//             Route::get('get-data', [PimpinanGajiPegawaiController::class, 'getData'])->name('pimpinan.gaji-pegawai.getData');
 
-            Route::get('/print-rekap', [PimpinanGajiPegawaiController::class, 'printRekap'])->name('pimpinan.gaji-pegawai.printRekap');
-            Route::get('/slip-gaji/{id}', [PimpinanGajiPegawaiController::class, 'printDetail'])->name('pimpinan.gaji-pegawai.printDetail');
-        });
+//             Route::get('/print-rekap', [PimpinanGajiPegawaiController::class, 'printRekap'])->name('pimpinan.gaji-pegawai.printRekap');
+//             Route::get('/slip-gaji/{id}', [PimpinanGajiPegawaiController::class, 'printDetail'])->name('pimpinan.gaji-pegawai.printDetail');
+//         });
 
-        // Barang Masuk
-        Route::prefix('barang-masuk')->group(function () {
-            Route::get('/', [PimpinanBarangMasukController::class, 'index'])->name('pimpinan.barang-masuk.index');
-            Route::get('get-data', [PimpinanBarangMasukController::class, 'getData'])->name('pimpinan.barang-masuk.getData');
+//         // Barang Masuk
+//         Route::prefix('barang-masuk')->group(function () {
+//             Route::get('/', [PimpinanBarangMasukController::class, 'index'])->name('pimpinan.barang-masuk.index');
+//             Route::get('get-data', [PimpinanBarangMasukController::class, 'getData'])->name('pimpinan.barang-masuk.getData');
 
-            Route::get('/detail/{id}', [PimpinanBarangMasukController::class, 'detail'])->name('pimpinan.barang-masuk.detail');
+//             Route::get('/detail/{id}', [PimpinanBarangMasukController::class, 'detail'])->name('pimpinan.barang-masuk.detail');
 
-            Route::get('/print-pemeriksaan/{id}', [PimpinanBarangMasukController::class, 'printPemeriksaan'])->name('pimpinan.barang-masuk.printPemeriksaan');
-            Route::post('/print-rekap', [PimpinanBarangMasukController::class, 'printRekap'])->name('pimpinan.barang-masuk.printRekap');
-            Route::get('/print-detail/{id}', [PimpinanBarangMasukController::class, 'printDetail'])->name('pimpinan.barang-masuk.printDetail');
-        });
+//             Route::get('/print-pemeriksaan/{id}', [PimpinanBarangMasukController::class, 'printPemeriksaan'])->name('pimpinan.barang-masuk.printPemeriksaan');
+//             Route::post('/print-rekap', [PimpinanBarangMasukController::class, 'printRekap'])->name('pimpinan.barang-masuk.printRekap');
+//             Route::get('/print-detail/{id}', [PimpinanBarangMasukController::class, 'printDetail'])->name('pimpinan.barang-masuk.printDetail');
+//         });
 
-        // Pemeriksaan Barang
-        Route::prefix('pemeriksaan-barang')->group(function () {
-            Route::get('/', [PimpinanPemeriksaanBarangController::class, 'index'])->name('pimpinan.pemeriksaan-barang.index');
-            Route::get('get-data', [PimpinanPemeriksaanBarangController::class, 'getData'])->name('pimpinan.pemeriksaan-barang.getData');
+//         // Pemeriksaan Barang
+//         Route::prefix('pemeriksaan-barang')->group(function () {
+//             Route::get('/', [PimpinanPemeriksaanBarangController::class, 'index'])->name('pimpinan.pemeriksaan-barang.index');
+//             Route::get('get-data', [PimpinanPemeriksaanBarangController::class, 'getData'])->name('pimpinan.pemeriksaan-barang.getData');
 
-            Route::get('/print-pemeriksaan/{id}', [PimpinanPemeriksaanBarangController::class, 'printPemeriksaan'])->name('pimpinan.pemeriksaan-barang.printPemeriksaan');
-            Route::post('/print-rekap', [PimpinanPemeriksaanBarangController::class, 'printRekap'])->name('pimpinan.pemeriksaan-barang.printRekap');
-        });
+//             Route::get('/print-pemeriksaan/{id}', [PimpinanPemeriksaanBarangController::class, 'printPemeriksaan'])->name('pimpinan.pemeriksaan-barang.printPemeriksaan');
+//             Route::post('/print-rekap', [PimpinanPemeriksaanBarangController::class, 'printRekap'])->name('pimpinan.pemeriksaan-barang.printRekap');
+//         });
 
-        //Serah Terima Barang
-        Route::prefix('serah-terima-barang')->group(function () {
-            Route::get('/', [PimpinanSerahTerimaController::class, 'index'])->name('pimpinan.serah-terima-barang.index');
-            Route::get('get-data', [PimpinanSerahTerimaController::class, 'getData'])->name('pimpinan.serah-terima-barang.getData');
+//         //Serah Terima Barang
+//         Route::prefix('serah-terima-barang')->group(function () {
+//             Route::get('/', [PimpinanSerahTerimaController::class, 'index'])->name('pimpinan.serah-terima-barang.index');
+//             Route::get('get-data', [PimpinanSerahTerimaController::class, 'getData'])->name('pimpinan.serah-terima-barang.getData');
 
-            Route::get('/print-serah-terima/{id}', [PimpinanSerahTerimaController::class, 'printSerahTerima'])->name('pimpinan.serah-terima-barang.printSerahTerima');
-            Route::post('/print-rekap', [PimpinanSerahTerimaController::class, 'printRekap'])->name('pimpinan.serah-terima-barang.printRekap');
-        });
+//             Route::get('/print-serah-terima/{id}', [PimpinanSerahTerimaController::class, 'printSerahTerima'])->name('pimpinan.serah-terima-barang.printSerahTerima');
+//             Route::post('/print-rekap', [PimpinanSerahTerimaController::class, 'printRekap'])->name('pimpinan.serah-terima-barang.printRekap');
+//         });
 
-        // Inventaris
-        Route::prefix('inventaris')->group(function () {
-            Route::get('/', [PimpinanInventarisController::class, 'index'])->name('pimpinan.inventaris.index');
-            Route::get('get-data', [PimpinanInventarisController::class, 'getData'])->name('pimpinan.inventaris.getData');
+//         // Inventaris
+//         Route::prefix('inventaris')->group(function () {
+//             Route::get('/', [PimpinanInventarisController::class, 'index'])->name('pimpinan.inventaris.index');
+//             Route::get('get-data', [PimpinanInventarisController::class, 'getData'])->name('pimpinan.inventaris.getData');
 
-            Route::post('/print-rekap', [PimpinanInventarisController::class, 'printRekap'])->name('pimpinan.inventaris.printRekap');
+//             Route::post('/print-rekap', [PimpinanInventarisController::class, 'printRekap'])->name('pimpinan.inventaris.printRekap');
 
-            Route::get('detail/{id}', [PimpinanInventarisController::class, 'detail'])->name('pimpinan.inventaris.detail');
-        });
+//             Route::get('detail/{id}', [PimpinanInventarisController::class, 'detail'])->name('pimpinan.inventaris.detail');
+//         });
 
-        // Mutasi Barang
+//         // Mutasi Barang
 
-        // Aset Masuk
-        Route::prefix('aset-masuk')->group(function () {
-            Route::get('/', [PimpinanAsetMasukController::class, 'index'])->name('pimpinan.aset-masuk.index');
-            Route::get('get-data', [PimpinanAsetMasukController::class, 'getData'])->name('pimpinan.aset-masuk.getData');
+//         // Aset Masuk
+//         Route::prefix('aset-masuk')->group(function () {
+//             Route::get('/', [PimpinanAsetMasukController::class, 'index'])->name('pimpinan.aset-masuk.index');
+//             Route::get('get-data', [PimpinanAsetMasukController::class, 'getData'])->name('pimpinan.aset-masuk.getData');
 
-            Route::get('/detail/{id}', [PimpinanAsetMasukController::class, 'detail'])->name('pimpinan.aset-masuk.detail');
+//             Route::get('/detail/{id}', [PimpinanAsetMasukController::class, 'detail'])->name('pimpinan.aset-masuk.detail');
 
-            Route::get('/print-pemeriksaan/{id}', [PimpinanAsetMasukController::class, 'printPemeriksaan'])->name('pimpinan.aset-masuk.printPemeriksaan');
-            Route::post('/print-rekap', [PimpinanAsetMasukController::class, 'printRekap'])->name('pimpinan.aset-masuk.printRekap');
-            Route::get('/print-detail/{id}', [PimpinanAsetMasukController::class, 'printDetail'])->name('pimpinan.aset-masuk.printDetail');
-        });
+//             Route::get('/print-pemeriksaan/{id}', [PimpinanAsetMasukController::class, 'printPemeriksaan'])->name('pimpinan.aset-masuk.printPemeriksaan');
+//             Route::post('/print-rekap', [PimpinanAsetMasukController::class, 'printRekap'])->name('pimpinan.aset-masuk.printRekap');
+//             Route::get('/print-detail/{id}', [PimpinanAsetMasukController::class, 'printDetail'])->name('pimpinan.aset-masuk.printDetail');
+//         });
 
-        // Laporan Barang Masuk
-        Route::prefix('laporan-barang-masuk')->group(function () {
-            Route::get('/', [PimpinanLaporanBarangMasukController::class, 'index'])->name('pimpinan.laporan-barang-masuk.index');
-            Route::get('get-data', [PimpinanLaporanBarangMasukController::class, 'getData'])->name('pimpinan.laporan-barang-masuk.getData');
+//         // Laporan Barang Masuk
+//         Route::prefix('laporan-barang-masuk')->group(function () {
+//             Route::get('/', [PimpinanLaporanBarangMasukController::class, 'index'])->name('pimpinan.laporan-barang-masuk.index');
+//             Route::get('get-data', [PimpinanLaporanBarangMasukController::class, 'getData'])->name('pimpinan.laporan-barang-masuk.getData');
 
-            Route::post('/print-rekap', [PimpinanLaporanBarangMasukController::class, 'printRekap'])->name('pimpinan.laporan-barang-masuk.printRekap');
-        });
+//             Route::post('/print-rekap', [PimpinanLaporanBarangMasukController::class, 'printRekap'])->name('pimpinan.laporan-barang-masuk.printRekap');
+//         });
 
-        // Inventaris Ruangan
-        Route::prefix('inventaris-ruangan')->group(function () {
-            Route::get('/', [PimpinanInventarisRuanganController::class, 'index'])->name('pimpinan.inventaris-ruangan.index');
-            Route::get('get-data', [PimpinanInventarisRuanganController::class, 'getData'])->name('pimpinan.inventaris-ruangan.getData');
+//         // Inventaris Ruangan
+//         Route::prefix('inventaris-ruangan')->group(function () {
+//             Route::get('/', [PimpinanInventarisRuanganController::class, 'index'])->name('pimpinan.inventaris-ruangan.index');
+//             Route::get('get-data', [PimpinanInventarisRuanganController::class, 'getData'])->name('pimpinan.inventaris-ruangan.getData');
 
-            Route::get('/print-rekap', [PimpinanInventarisRuanganController::class, 'printRekap'])->name('pimpinan.inventaris-ruangan.printRekap');
+//             Route::get('/print-rekap', [PimpinanInventarisRuanganController::class, 'printRekap'])->name('pimpinan.inventaris-ruangan.printRekap');
 
-            Route::get('detail/{id}', [PimpinanInventarisRuanganController::class, 'detail'])->name('pimpinan.inventaris-ruangan.detail');
-            Route::get('/print-detail/{id}', [PimpinanInventarisRuanganController::class, 'printDetail'])->name('pimpinan.inventaris-ruangan.printDetail');
-        });
+//             Route::get('detail/{id}', [PimpinanInventarisRuanganController::class, 'detail'])->name('pimpinan.inventaris-ruangan.detail');
+//             Route::get('/print-detail/{id}', [PimpinanInventarisRuanganController::class, 'printDetail'])->name('pimpinan.inventaris-ruangan.printDetail');
+//         });
 
-        // Aset
-        Route::prefix('aset')->group(function () {
-            Route::get('/', [PimpinanAsetController::class, 'index'])->name('pimpinan.aset.index');
-            Route::get('get-data', [PimpinanAsetController::class, 'getData'])->name('pimpinan.aset.getData');
+//         // Aset
+//         Route::prefix('aset')->group(function () {
+//             Route::get('/', [PimpinanAsetController::class, 'index'])->name('pimpinan.aset.index');
+//             Route::get('get-data', [PimpinanAsetController::class, 'getData'])->name('pimpinan.aset.getData');
 
-            Route::get('/print-rekap', [PimpinanAsetController::class, 'printRekap'])->name('pimpinan.aset.printRekap');
+//             Route::get('/print-rekap', [PimpinanAsetController::class, 'printRekap'])->name('pimpinan.aset.printRekap');
 
-            Route::get('detail/{id}', [PimpinanAsetController::class, 'detail'])->name('pimpinan.aset.detail');
-        });
-    });
+//             Route::get('detail/{id}', [PimpinanAsetController::class, 'detail'])->name('pimpinan.aset.detail');
+//         });
+//     });

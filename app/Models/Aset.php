@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
@@ -23,6 +24,36 @@ class Aset extends Model
         return self::select('nama', 'kode', 'merk', DB::raw('MAX(id) as id'))
         ->groupBy('nama', 'kode', 'merk')
         ->get();
+    }
+
+    public static function getFreeUniqueAset(){
+        // $listAset = self::getUniqueAssets();
+        $listAset = self::where([
+            ['jenis_kepemilikan', '=', null]
+        ])->get();
+
+        $aset = self::getDistinctAset($listAset);
+
+        return $aset;
+    }
+
+    public static function getDistinctAset(Collection $listAset){
+        $res = [];
+        if ($listAset) {
+            foreach ($listAset as $aset) {
+                $res[$aset->kode] = [
+                    'id' => $aset->id,
+                    'nama' => $aset->nama,
+                    'kode' => $aset->kode,
+                    'merk' => $aset->merk,
+                    'tahun_masuk' => $aset->tahun_masuk,
+                    'harga' => $aset->harga,
+                    'keterangan' => $aset->keterangan
+                ];
+            }
+        }
+
+        return $res;
     }
 
     public function ruangan()

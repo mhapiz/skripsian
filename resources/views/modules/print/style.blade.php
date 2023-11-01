@@ -48,8 +48,12 @@
         border-collapse: collapse
     }
 
-    .table-bordered td,
-    th {
+    .table-bordered td
+    {
+        border: 1px solid black;
+        padding: 8px 12px;
+    }
+    .table-bordered th {
         border: 1px solid black;
         padding: 8px 12px;
     }
@@ -61,8 +65,6 @@
         margin: 0;
     }
 
-
-
     .table-pad td,
     th {
         padding: 5px 12px;
@@ -70,5 +72,9 @@
 
     p {
         text-align: justify;
+    }
+
+    .uppercase{
+        text-transform: uppercase;
     }
 </style>

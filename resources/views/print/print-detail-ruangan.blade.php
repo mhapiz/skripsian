@@ -39,7 +39,7 @@
                             <td style="padding-right: 1.5rem">Penanggung Jawab Ruangan</td>
                             <td>:</td>
                             <td>
-                                {{ $data->pegawai->nama_pegawai }}
+                                {{ $data->pegawai ? $data->pegawai->nama_pegawai : '' }}
                             </td>
                         </tr>
                     </table>
@@ -66,25 +66,25 @@
             </thead>
 
             <tbody>
-                @foreach ($data->inventaris as $inven)
+                @foreach ($data->aset as $aset)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
                         <td>
-                            {{ App\Models\Barang::find($inven->barang_id)->nama_barang }}
+                            {{ $aset->nama }}
                         </td>
                         <td>
-                            {{ App\Models\Barang::find($inven->barang_id)->kode_barang }}
+                            {{ $aset->kode }}
                             -
-                            {{ $inven->register }}
+                            {{ $aset->register }}
                         </td>
                         <td>
-                            @if ($inven->kondisi == 'baik')
+                            @if ($aset->kondisi == 'baik')
                                 Baik
-                            @elseif ($inven->kondisi == 'cukup_baik')
+                            @elseif ($aset->kondisi == 'cukup_baik')
                                 Cukup Baik
-                            @elseif ($inven->kondisi == 'rusak')
+                            @elseif ($aset->kondisi == 'rusak')
                                 Rusak
-                            @elseif ($inven->kondisi == 'rusak_berat')
+                            @elseif ($aset->kondisi == 'rusak_berat')
                                 Rusak Berat
                             @endif
                         </td>

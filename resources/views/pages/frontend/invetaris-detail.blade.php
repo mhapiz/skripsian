@@ -22,10 +22,15 @@
     <div class="container">
         <div class="row d-flex justify-content-center">
             <div class="col-12 m-4">
-                <h1 class="h3 text-center">Detail Aset</h1>
+                <h1 class="h3 text-center">Pemerintah Kabupaten Banjar <br> Kecamatan Martapura <br> </h1>
             </div>
             <div class="col-12 col-lg-4">
                 <table class="table table-bordered">
+                    <tr>
+                        <td colspan="2" class="text-center">
+                            <span class="h5">Barang Milik Daerah</span>
+                        </td>
+                    </tr>
                     <tr>
                         <th width="200px">Nama Aset</th>
                         <td>{{ $data->nama }}</td>
@@ -41,11 +46,6 @@
                     <tr>
                         <th>Kondisi</i></th>
                         <td>{{ $data->kondisi }} </td>
-                    </tr>
-                    <tr>
-                        <th>QR Code</i></th>
-                        <td>{{ QrCode::size(200)->generate(route('inventaris-detail', md5($data->id))) }}
-                        </td>
                     </tr>
                     <tr>
                         <th>Foto Barang</th>

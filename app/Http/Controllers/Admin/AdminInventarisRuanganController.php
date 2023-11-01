@@ -24,8 +24,9 @@ class AdminInventarisRuanganController extends Controller
             ->addIndexColumn()
             ->addColumn('aksi', function ($row) {
                 $detailUrl = route('admin.inventaris-ruangan.detail', $row->id_ruangan);
+                $hapusUrl = null;
 
-                return view('modules.backend._formActionDetail', compact('detailUrl'));
+                return view('modules.backend._formActionDetail', compact('detailUrl', 'hapusUrl'));
             })
             ->editColumn('pegawai', function ($row) {
                 return $row->pegawai ? $row->pegawai->nama_pegawai : '-';
@@ -58,7 +59,7 @@ class AdminInventarisRuanganController extends Controller
 
     public function printDetail($id)
     {
-        $data = Ruangan::with(['pegawai', 'inventaris'])->findOrFail($id);
+        $data = Ruangan::with(['pegawai', 'aset'])->findOrFail($id);
 
         $pdf = Pdf::loadView('print.print-detail-ruangan', [
             'data' => $data
