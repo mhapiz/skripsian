@@ -35,7 +35,7 @@ class AdminPegawaiController extends Controller
 
     public function printRekap()
     {
-        $data = Pegawai::with('pangkat')->get();
+        $data = Pegawai::get();
         $pdf = Pdf::loadView('print.print-rekap-pegawai-semua', [
             'data' => $data
         ])->setPaper('a4', 'landscape');

@@ -26,7 +26,6 @@
                     <th>Nama Pegawai</th>
                     <th>NIP</th>
                     <th>Jabatan</th>
-                    <th>Pangkat - Golongan</th>
                 </tr>
             </thead>
 
@@ -42,9 +41,6 @@
                         </td>
                         <td>
                             {{ $value->jabatan }}
-                        </td>
-                        <td>
-                            {{ $value->pangkat->nama_pangkat }} {{ $value->pangkat->golongan }}
                         </td>
                     </tr>
                 @endforeach
